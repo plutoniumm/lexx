@@ -1,26 +1,24 @@
-import { useState } from 'react';
+import Modes from "./modes";
+import { Sandpack } from "@codesandbox/sandpack-react";
+import { atomDark } from "@codesandbox/sandpack-themes";
 
 function App () {
-  const [ count, setCount ] = useState( 0 )
+  let files = {
+    "/App.js": "const App = () => <button>Click me</button>",
+    "/button.js": {
+      code: "export const Button = () => <button>Click me</button>",
+    },
+  }
 
   return (
     <>
-      <div>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount( ( count ) => count + 1 )}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Modes />
+      <Sandpack
+        theme={atomDark}
+        files={files}
+      />
     </>
   )
-}
+};
 
-export default App
+export default App;

@@ -1,0 +1,12 @@
+body,
+#root {
+  background: #2222;
+}
+
+.selector {
+  background: #eee;
+}
+
+.selector:checked {
+  background: #ccc;
+}

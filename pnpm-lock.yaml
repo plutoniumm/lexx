@@ -8,6 +8,9 @@ dependencies:
   '@codesandbox/sandpack-react':
     specifier: ^2.6.9
     version: 2.6.9(@lezer/common@1.0.3)(react-dom@18.2.0)(react@18.2.0)
+  '@codesandbox/sandpack-themes':
+    specifier: ^2.0.21
+    version: 2.0.21
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -392,6 +395,10 @@ packages:
       react-is: 17.0.2
     transitivePeerDependencies:
       - '@lezer/common'
+    dev: false
+
+  /@codesandbox/sandpack-themes@2.0.21:
+    resolution: {integrity: sha512-CMH/MO/dh6foPYb/3eSn2Cu/J3+1+/81Fsaj7VggICkCrmRk0qG5dmgjGAearPTnRkOGORIPHuRqwNXgw0E6YQ==}
     dev: false
 
   /@esbuild/android-arm64@0.17.19:
