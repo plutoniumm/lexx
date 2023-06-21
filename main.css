@@ -15,3 +15,7 @@ body,
   min-width: 75px;
   font-size: 14px;
 }
+
+.sp-layout {
+  --sp-layout-height: calc(100vh - 40px - 14px);
+}
