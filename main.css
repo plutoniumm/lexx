@@ -1,0 +1,17 @@
+body,
+#root {
+  background: #282c34;
+  width: 100vw;
+  height: 100vh;
+}
+
+.selectors {
+  list-style-type: none;
+}
+
+.selectors li {
+  background: #333;
+  padding: 7px 10px;
+  min-width: 75px;
+  font-size: 14px;
+}
