@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "deploy": "npx gh-pages -d dist -t true && rm -rf dist"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.6.9",

@@ -1,38 +1,51 @@
 import React, { useState } from 'react';
+import options from "./options.json";
 
-const modes = [
-  { name: "Svelte" },
-  { name: "React" },
-];
+const getChip = ( color ) => ( {
+  border: "1px solid " + color,
+  color: color,
+} );
+const getSelectedChip = ( color ) => ( {
+  border: "1px solid " + color,
+  backgroundColor: color,
+  color: "#fff",
+} );
 
-function Selector ( { onSelect } ) {
-  const [ selectedMode, setSelectedMode ] = useState( '' );
+const Modes = ( { onChange } ) => {
+  const [ selectedOption, setSelectedOption ] = useState( '' );
 
-  const handleModeSelect = ( mode ) => {
-    setSelectedMode( mode );
-    onSelect( mode );
+  const handleOptionChange = ( { target } ) => {
+    const { dataset } = target;
+    const value = JSON.parse( dataset.value );
+
+    setSelectedOption( value.value );
+    onChange( value ); // Call the onChange prop and pass the selected value to the parent
   };
 
   return (
-    <ul className="f p0 d-b">
-      {modes.map( ( mode ) => (
-        <li key={mode.name}>
-          <label className="rx5 p10 m10 ptr selector" htmlFor={mode.name}>
+    <ul className="selectors f m0 p0">
+      {options.map( ( { value, name, color, type } ) => {
+        const checked = selectedOption === value;
+
+        return (
+          <li className="m10 ptr tc rx20" key={value} style={
+            checked ? getSelectedChip( color ) : getChip( color )
+          }>
+            <label className="selector" htmlFor={value}>{name}</label>
             <input
-              className="d-n"
+              className="p5 d-n"
+              id={value}
               type="radio"
-              name="mode"
-              value={mode.name}
-              id={mode.name}
-              checked={selectedMode === mode.name}
-              onChange={() => handleModeSelect( mode.name )}
+              value={value}
+              data-value={JSON.stringify( { value, type } )}
+              checked={checked}
+              onChange={handleOptionChange}
             />
-            {mode.name}
-          </label>
-        </li>
-      ) )}
+          </li>
+        )
+      } )}
     </ul>
   );
-}
+};
 
-export default Selector;
+export default Modes;
