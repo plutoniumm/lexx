@@ -11,8 +11,8 @@ const getSelectedChip = ( color ) => ( {
   color: "#fff",
 } );
 
-const Modes = ( { onChange } ) => {
-  const [ selectedOption, setSelectedOption ] = useState( '' );
+const Modes = ( { onChange, onload } ) => {
+  const [ selectedOption, setSelectedOption ] = useState( onload );
 
   const handleOptionChange = ( { target } ) => {
     const { dataset } = target;
@@ -28,7 +28,7 @@ const Modes = ( { onChange } ) => {
         const checked = selectedOption === value;
 
         return (
-          <li className="m10 ptr tc rx20" key={value + name} style={
+          <li className="m10 p10 ptr tc rx20" key={value + name} style={
             checked ? getSelectedChip( color ) : getChip( color )
           }>
             <label className="selector" htmlFor={value}>{name}</label>

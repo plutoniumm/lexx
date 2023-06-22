@@ -20,6 +20,18 @@
 <body class="w-100 tc">
   <h1 class="tc">Embedding Test</h1>
   <iframe class="rx10 m10" src="/" frameborder="0"></iframe>
+
+  <script>
+    setTimeout( () => document
+      .querySelector( 'iframe' )
+      .contentWindow
+      .postMessage( {
+        type: 'template',
+        value: "svelte",
+        files: {}
+      }, '*' )
+      , 1000 );
+  </script>
 </body>
 
 </html>

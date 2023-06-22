@@ -7,7 +7,7 @@ body,
 
 .title {
   color: #fff;
-  font: italic 100 2rem "Helvetica Neue", sans-serif;
+  font: italic 100 32px "Helvetica Neue", sans-serif;
 }
 
 .selectors {
@@ -16,15 +16,23 @@ body,
 
 .selectors li {
   background: #333;
-  padding: 7px 10px;
   min-width: 75px;
   font-size: 14px;
 }
 
 .sp-layout {
-  --sp-layout-height: calc(100vh - 40px - 14px);
+  --sp-layout-height: calc(100vh - 40px - 20px);
+  border: 0 !important;
+}
+
+* .cm-gutter.cm-lineNumbers {
+  font-size: 12px !important;
 }
 
 [title="Open in CodeSandbox"] {
   display: none !important;
+}
+
+* svg path {
+  stroke-width: 1 !important;
 }
