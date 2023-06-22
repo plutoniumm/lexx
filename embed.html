@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEXX Embedding Test</title>
+
+  <link rel="stylesheet" href="https://manav.ch/atomic.css">
+
+  <style>
+    iframe {
+      width: 80vw;
+      aspect-ratio: 16/9;
+      border: 1px solid #0008;
+    }
+  </style>
+</head>
+
+<body class="w-100 tc">
+  <h1 class="tc">Embedding Test</h1>
+  <iframe class="rx10 m10" src="/" frameborder="0"></iframe>
+
+  <script>
+    setTimeout( () => document
+      .querySelector( 'iframe' )
+      .contentWindow
+      .postMessage( {
+        type: 'template',
+        value: "svelte",
+        files: {}
+      }, '*' )
+      , 1000 );
+  </script>
+</body>
+
+</html>
