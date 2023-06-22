@@ -28,7 +28,7 @@ const Modes = ( { onChange } ) => {
         const checked = selectedOption === value;
 
         return (
-          <li className="m10 ptr tc rx20" key={value} style={
+          <li className="m10 ptr tc rx20" key={value + name} style={
             checked ? getSelectedChip( color ) : getChip( color )
           }>
             <label className="selector" htmlFor={value}>{name}</label>

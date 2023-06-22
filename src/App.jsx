@@ -1,34 +1,37 @@
+import { useState } from "react";
 import Modes from "./modes";
 import { Sandpack } from "@codesandbox/sandpack-react";
 import { atomDark } from "@codesandbox/sandpack-themes";
 
-// let files = {
-//   "/App.js": "const App = () => <button>Click me</button>",
-//   "/button.js": {
-//     code: "export const Button = () => <button>Click me</button>",
-//   },
-// };
+import options from "./options.json";
 
 function App () {
-  let files = {};
-  let template = "";
+  const [ mode, setMode ] = useState( "svelte" );
+
   const handleOptionChange = ( { value, type } ) => {
     console.log( 'Selected option:', value, type );
-    if ( type === "template" ) {
-      template = value;
-    };
+    if ( type === "template" )
+      setMode( {
+        template: value,
+        files: {}
+      } );
+    if ( type === "files" ) {
+      const { template, files } = options.find( ( s ) => s.value === value );
+      setMode( { template, files } );
+    }
   };
 
   return (
     <>
-      <Modes
-        onChange={handleOptionChange}
-      />
-      <Sandpack
-        theme={atomDark}
-        files={files}
-        template={template}
-      />
+      {
+        window.isTop && (
+          <div className="f j-bw ">
+            <div className="m10 title">LEXX</div>
+            <Modes onChange={handleOptionChange} />
+          </div>
+        )}
+
+      <Sandpack theme={atomDark} {...mode} />
     </>
   );
 };

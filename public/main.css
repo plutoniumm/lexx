@@ -5,6 +5,11 @@ body,
   height: 100vh;
 }
 
+.title {
+  color: #fff;
+  font: italic 100 2rem "Helvetica Neue", sans-serif;
+}
+
 .selectors {
   list-style-type: none;
 }
@@ -18,4 +23,8 @@ body,
 
 .sp-layout {
   --sp-layout-height: calc(100vh - 40px - 14px);
+}
+
+[title="Open in CodeSandbox"] {
+  display: none !important;
 }
