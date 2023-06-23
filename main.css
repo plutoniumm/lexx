@@ -1,6 +1,7 @@
 body,
 #root {
-  background: #282c34;
+  --theme: #282c34;
+  background: var(--theme);
   width: 100vw;
   height: 100vh;
 }
@@ -10,7 +11,7 @@ body,
   font: italic 100 32px "Helvetica Neue", sans-serif;
 }
 
-.selectors {
+li {
   list-style-type: none;
 }
 
@@ -21,7 +22,6 @@ body,
 }
 
 .sp-layout {
-  --sp-layout-height: calc(100vh - 40px - 20px);
   border: 0 !important;
 }
 
@@ -33,6 +33,20 @@ body,
   display: none !important;
 }
 
-* svg path {
+.sp-wrapper * svg path {
   stroke-width: 1 !important;
+}
+
+.sp-file-explorer {
+  min-width: 150px !important;
+  width: 150px !important;
+}
+
+.quicon {
+  display: block;
+  background: #334;
+  fill: none;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
 }
