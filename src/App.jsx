@@ -22,6 +22,8 @@ function App () {
   } );
 
   const handleOptionChange = ( { value, type, files } ) => {
+    if ( type !== "template" && type !== "files" ) return 0;
+    console.log( `Running Type: ${ type } \n| Value: ${ value } \n| Files: ${ Object.keys( files || {} ) }` );
     // TEMPLATE
     if ( type === "template" )
       setMode( {
