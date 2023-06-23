@@ -1,6 +1,8 @@
 import Modes from "./modes";
 import { useState } from "react";
+import { Sandpack } from "@codesandbox/sandpack-react";
 import {
+  useSandpack,
   SandpackProvider,
   SandpackLayout,
   SandpackCodeEditor,
@@ -42,15 +44,9 @@ function App () {
     const ext = name.split( "." ).pop();
     if ( !( name || ext ) ) return 0;
 
-    // tempMode.files[ '/' + name ] = "Hi";
-    console.log( tempMode );
-    setMode( {
-      template: tempMode.template,
-      files: {
-        ...tempMode.files,
-        [ '/' + name ]: ""
-      }
-    } );
+    const { sandpack } = useSandpack();
+    const { addFile } = sandpack;
+    addFile( name, "" );
   };
 
 
@@ -89,30 +85,44 @@ function App () {
     </div>
   )
 
-  return (
-    <>
-      {window.isTop && navbar}
-      <SandpackProvider
-        {...mode}
+  if ( window.isTop )
+    return (
+      <>
+        {window.isTop && navbar}
+        <SandpackProvider
+          {...mode}
+          theme={atomDark}
+        >
+          hi
+          <SandpackLayout>
+            <SandpackFileExplorer />
+            <SandpackCodeEditor
+              closableTabs
+              showTabs={true}
+              showLineNumbers={true}
+              wrapContent={true}
+            />
+            <SandpackPreview />
+          </SandpackLayout>
+        </SandpackProvider>
+      </>
+    );
+  else
+    return (
+      <Sandpack
         theme={atomDark}
+        {...mode}
         options={{
           showInlineErrors: true,
+          showNavigator: true,
           showReadOnly: false,
           showLineNumbers: true,
           showConsoleButton: true,
-          showTabs: true,
           closableTabs: true,
           wrapContent: true,
         }}
-      >
-        <SandpackLayout>
-          <SandpackFileExplorer />
-          <SandpackCodeEditor closableTabs />
-          <SandpackPreview />
-        </SandpackLayout>
-      </SandpackProvider>
-    </>
-  );
+      />
+    )
 };
 
 export default App;
