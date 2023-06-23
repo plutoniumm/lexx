@@ -14,7 +14,7 @@ function Sidebar ( { adder } ) {
   };
 
   const openLink = () => window.open( document
-    .querySelector( "iframe.sp-preview-iframe" ),
+    .querySelector( "iframe.sp-preview-iframe" ).src,
     "_blank"
   );
 
