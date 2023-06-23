@@ -33,6 +33,6 @@ body,
   display: none !important;
 }
 
-* svg path {
+.sp-wrapper * svg path {
   stroke-width: 1 !important;
 }
