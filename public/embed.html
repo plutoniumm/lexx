@@ -19,6 +19,22 @@
 
 <body class="w-100 tc">
   <h1 class="tc">Embedding Test</h1>
+
+  <div class="tl mx-a" style="width: 300px;">
+    Using:
+    <br />
+    <textarea name="testcode" class="rx5" cols="20" rows="10" style="background: #282c34;color:#fff;">
+  &lt;section&gt;
+    Hi
+  &lt;/section&gt;
+
+  &lt;style&gt;
+    section {
+      color:red;
+    }
+  &lt;/style&gt;
+    </textarea>
+  </div>
   <iframe class="rx10 m10" src="/" frameborder="0"></iframe>
 
   <script>
@@ -28,7 +44,11 @@
       .postMessage( {
         type: 'template',
         value: "svelte",
-        files: {}
+        files: {
+          "/App.svelte": {
+            code: "<section>\n\tHi\n</section>\n\n<style>\nsection {\n\tcolor:red;\n}\n</style>",
+          }
+        }
       }, '*' )
       , 1000 );
   </script>

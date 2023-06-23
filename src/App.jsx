@@ -1,8 +1,9 @@
 import Modes from "./modes";
+import Sidebar from "./sidebar";
+
 import { useState } from "react";
 import { Sandpack } from "@codesandbox/sandpack-react";
 import {
-  useSandpack,
   SandpackProvider,
   SandpackLayout,
   SandpackCodeEditor,
@@ -15,7 +16,10 @@ import options from "./options.json";
 
 const starter = "svelte";
 function App () {
-  const [ mode, setMode ] = useState( { template: starter, files: {} } );
+  const [ mode, setMode ] = useState( {
+    template: starter,
+    files: {}
+  } );
 
   const handleOptionChange = ( { value, type, files } ) => {
     // TEMPLATE
@@ -38,69 +42,30 @@ function App () {
     };
   };
 
-  const addFile = () => {
-    let tempMode = mode;
-    const name = prompt( "Create File" );
-    const ext = name.split( "." ).pop();
-    if ( !( name || ext ) ) return 0;
-
-    const { sandpack } = useSandpack();
-    const { addFile } = sandpack;
-    addFile( name, "" );
+  const adder = ( files ) => {
+    const template = mode.template;
+    setMode( { template, files } )
   };
 
-
-  window.onmessage = ( { data: {
-    type, value, files
-  } } ) => handleOptionChange( {
-    type, value, files
-  } );
-
-  const navbar = (
-    <div className="f j-bw ">
-      <div className="m10 title">
-        LEXX
-        <svg
-          className="ptr p2 rx5"
-          viewBox="0 0 32 32"
-          width="32"
-          height="32"
-          style={{
-            height: "24px",
-            width: "24px",
-            margin: "5px 0 5px 7px",
-            verticalAlign: "text-top",
-            background: "#445",
-            strokeWidth: "1",
-          }}
-          onClick={addFile}
-        >
-          <path d="M16 2 L16 30 M2 16 L30 16" stroke="#fff" />
-        </svg>
-      </div>
-      <Modes
-        onload={starter}
-        onChange={handleOptionChange}
-      />
-    </div>
-  )
+  window.onmessage = ( { data } ) =>
+    handleOptionChange( data );
 
   if ( window.isTop )
     return (
       <>
-        {window.isTop && navbar}
-        <SandpackProvider
-          {...mode}
-          theme={atomDark}
-        >
-          hi
+        <div className="f j-bw ">
+          <div className="m10 title">LEXX</div>
+          <Modes onload={starter} onChange={handleOptionChange} />
+        </div>
+        <SandpackProvider {...mode} theme={atomDark}>
           <SandpackLayout>
+            <Sidebar adder={adder} />
             <SandpackFileExplorer />
             <SandpackCodeEditor
               closableTabs
-              showTabs={true}
-              showLineNumbers={true}
-              wrapContent={true}
+              showTabs
+              showLineNumbers
+              wrapContent
             />
             <SandpackPreview />
           </SandpackLayout>
@@ -114,7 +79,6 @@ function App () {
         {...mode}
         options={{
           showInlineErrors: true,
-          showNavigator: true,
           showReadOnly: false,
           showLineNumbers: true,
           showConsoleButton: true,
