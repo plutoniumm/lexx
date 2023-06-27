@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFile } from 'fs';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
 
 // DEFNS
 const root = "templates";
@@ -12,7 +12,7 @@ const dir = ( path, filter = false ) => {
 const file = ( path ) => readFileSync( path, 'utf8' );
 
 // MAIN
-const origOps = JSON.parse( file( 'src/options.json' ) );
+const origOps = JSON.parse( file( 'scripts/basic.json' ) );
 const newOps = dir( root, true ).map( ( value ) => {
   let url = `${ root }/${ value }/`;
   const data = dir( url );
@@ -56,11 +56,8 @@ for ( let i = 0;i < options.length;i++ ) {
 };
 
 
-// async write
-writeFile( 'src/options.json',
-  JSON.stringify( uniqueOps, null, 2 ),
-  ( err ) => {
-    if ( err ) throw err;
-    console.log( 'The file has been saved!' );
-  }
+writeFileSync( 'src/options.json',
+  JSON.stringify( uniqueOps, null, 2 )
 );
+
+console.log( '\x1b[32m%s\x1b[0m', 'Generated Templates!' );

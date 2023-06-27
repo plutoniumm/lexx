@@ -42,8 +42,8 @@
     "value": "markdown",
     "type": "files",
     "files": {
-      "index.html": "<html>\n\n<head>\n  <script src='https://cdnjs.cloudflare.com/ajax/libs/marked/5.1.0/marked.min.js'></script>\n\n  <script>\n    fetch( 'index.md' )\n      .then( r => r.text() )\n      .then( text => {\n        document.body.innerHTML = marked( text )\n      } )\n  </script>\n</head>\n\n<body>\n  Hi\n</body>\n\n</html>",
-      "index.js": "",
+      "index.html": "<html>\n\n<head>\n</head>\n\n<body>\n  Hi\n</body>\n\n</html>",
+      "index.js": "let marked = null;\nconst getMarked = async () => {\n  if ( !marked )\n    marked = await import( 'https://cdn.jsdelivr.net/npm/marked/marked.min.js' )\n      .then( m => m.default )\n\n  return marked;\n}\n\nfetch( 'index.md' )\n  .then( r => r.text() )\n  .then( async ( text ) => {\n    if ( !marked ) await getMarked();\n    console.log( marked );\n    // document.body.innerHTML = marked( text )\n  } )",
       "index.md": {
         "active": true,
         "code": "# Hello World\n\nThis is a markdown file.\n\nIt will be rendered as HTML."

@@ -23,6 +23,7 @@ for ( const [ key, value ] of headers )
 //   console.log( 'Headers file created' );
 // } );
 // END HEADERS
+
 // https://vitejs.dev/config/
 export default defineConfig( {
   plugins: [ react() ],

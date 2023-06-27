@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Svelte",
+    "value": "svelte",
+    "color": "#f40",
+    "type": "template"
+  },
+  {
+    "name": "React",
+    "value": "react",
+    "color": "#5de",
+    "type": "template"
+  },
+  {
+    "name": "Vue",
+    "value": "vue",
+    "color": "#4b8",
+    "type": "template"
+  },
+  {
+    "name": "Javascript",
+    "value": "vanilla",
+    "color": "#fc5",
+    "type": "template"
+  },
+  {
+    "name": "HTML",
+    "value": "static",
+    "color": "#f80",
+    "type": "template"
+  },
+  {
+    "name": "Solid",
+    "value": "solid",
+    "color": "#47a",
+    "type": "template"
+  }
+]

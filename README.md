@@ -1,16 +1,10 @@
 <div align="center">
 <img src="./public/icon.svg" height="120px" width="120px" />
 <hr/>
-</div>
 
-<div align="center">
+> This has nothing to do with IBM LEXX but is named after it. The IBM LEXX editor was the first editor to use live syntax highlighting (via REXX, therefore the XX)
 
-> This has nothing to do with IBM LEXX but is named after it.
-> The IBM LEXX editor was the first editor to use live syntax highlighting
-> (via REXX, therefore the XX)
-
-Minimal as hell text editor for the browser. I find need to be
-able to rapidly prototype quite a lot
+Text editor for the browser. I find need to be able to rapidly prototype quite a lot
 
 ## License
 This project is covered under GPL v3.0 copy left license.

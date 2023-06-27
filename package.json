@@ -3,9 +3,12 @@
   "version": "3.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/template.js",
     "dev": "vite",
+    "prebuild": "node scripts/template.js",
     "build": "vite build",
-    "deploy": "npx gh-pages -d dist -t true && rm -rf dist"
+    "deploy": "npx gh-pages -d dist -t true",
+    "postdeploy": "rm -rf dist"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.6.9",
