@@ -14,7 +14,7 @@ import {
 } from "@codesandbox/sandpack-react";
 import { atomDark } from "@codesandbox/sandpack-themes";
 
-const startWith = "markdown"
+const startWith = "sveltevg"
 const starter = options.find( x => x.value === startWith );
 function App () {
   const [ mode, setMode ] = useState( {
