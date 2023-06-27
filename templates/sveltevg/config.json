@@ -1,1 +1,6 @@
-{}
+{
+  "name": "SVGs",
+  "color": "#f40",
+  "template": "svelte",
+  "active": "App.svelte"
+}
