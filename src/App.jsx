@@ -8,7 +8,8 @@ import {
   SandpackLayout,
   SandpackCodeEditor,
   SandpackFileExplorer,
-  SandpackPreview
+  SandpackPreview,
+  SandpackConsole,
 } from "@codesandbox/sandpack-react";
 import { atomDark } from "@codesandbox/sandpack-themes";
 
@@ -56,10 +57,19 @@ function App () {
     return (
       <>
         <div className="f j-bw ">
-          <div className="m10 title">LEXX</div>
+          <div className="m10 title p-rel">
+            <div className="p-abs" style={{ color: "#F0F", left: "2px" }}>
+              LEXX
+            </div>
+            <div className="p-abs" style={{ color: "#0FF", left: "0" }}>
+              LEXX
+            </div>
+          </div>
           <Modes onload={starter} onChange={handleOptionChange} />
         </div>
-        <SandpackProvider {...mode} theme={atomDark}>
+        <SandpackProvider {...mode} theme={atomDark} options={{
+          recompileMode: "delayed"
+        }}>
           <SandpackLayout>
             <Sidebar adder={adder} />
             <SandpackFileExplorer />
@@ -69,7 +79,17 @@ function App () {
               showLineNumbers
               wrapContent
             />
-            <SandpackPreview />
+            <SandpackPreview>
+              <div className="p-rel o-50" style={{
+                color: "#FFF",
+                top: "14%",
+                left: "5px",
+                zIndex: "100",
+              }}>Console</div>
+              <SandpackConsole style={{
+                height: "15%",
+              }} />
+            </SandpackPreview>
           </SandpackLayout>
         </SandpackProvider>
       </>
