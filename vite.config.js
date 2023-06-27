@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import million from 'million/compiler';
 import { writeFile } from 'fs';
 import { resolve, join } from 'path';
 import react from '@vitejs/plugin-react';
@@ -26,7 +27,10 @@ for ( const [ key, value ] of headers )
 
 // https://vitejs.dev/config/
 export default defineConfig( {
-  plugins: [ react() ],
+  plugins: [
+    million.vite( { mode: 'react', optimize: true } ),
+    react()
+  ],
   server: {
     port: 3000,
   }
