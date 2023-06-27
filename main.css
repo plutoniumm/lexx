@@ -15,6 +15,10 @@ li {
   list-style-type: none;
 }
 
+.selectors {
+  max-width: min(50vw, 991px);
+}
+
 .selectors li {
   background: #333;
   min-width: 75px;
@@ -49,4 +53,11 @@ li {
   height: 32px;
   width: 32px;
   cursor: pointer;
+}
+
+#consoleTag {
+  color: #fff;
+  top: 14%;
+  left: 5px;
+  z-index: 100;
 }
