@@ -1,7 +1,8 @@
 import Modes from "./modes";
 import Sidebar from "./sidebar";
-
 import { useState } from "react";
+import options from "./options.json";
+
 import { Sandpack } from "@codesandbox/sandpack-react";
 import {
   SandpackProvider,
@@ -13,13 +14,12 @@ import {
 } from "@codesandbox/sandpack-react";
 import { atomDark } from "@codesandbox/sandpack-themes";
 
-import options from "./options.json";
-
-const starter = "svelte";
+const startWith = "markdown"
+const starter = options.find( x => x.value === startWith );
 function App () {
   const [ mode, setMode ] = useState( {
-    template: starter,
-    files: {}
+    template: starter.template,
+    files: starter.files || {}
   } );
 
   const handleOptionChange = ( { value, type, files } ) => {
@@ -65,7 +65,7 @@ function App () {
               LEXX
             </div>
           </div>
-          <Modes onload={starter} onChange={handleOptionChange} />
+          <Modes onload={startWith} onChange={handleOptionChange} />
         </div>
         <SandpackProvider {...mode} theme={atomDark} options={{
           recompileMode: "delayed"
@@ -80,15 +80,10 @@ function App () {
               wrapContent
             />
             <SandpackPreview>
-              <div className="p-rel o-50" style={{
-                color: "#FFF",
-                top: "14%",
-                left: "5px",
-                zIndex: "100",
-              }}>Console</div>
-              <SandpackConsole style={{
-                height: "15%",
-              }} />
+              <div id="consoleTag" className="p-rel o-50">
+                Console
+              </div>
+              <SandpackConsole style={{ height: "15%" }} />
             </SandpackPreview>
           </SandpackLayout>
         </SandpackProvider>

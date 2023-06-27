@@ -23,7 +23,7 @@ const Modes = ( { onChange, onload } ) => {
   };
 
   return (
-    <ul className="selectors f m0 p0">
+    <ul className="selectors f m0 p0 flow-x-s">
       {options.map( ( { value, name, color, type } ) => {
         const checked = selectedOption === value;
 
