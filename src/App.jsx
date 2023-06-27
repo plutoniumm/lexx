@@ -27,10 +27,7 @@ function App () {
     console.log( `Running Type: ${ type } \n| Value: ${ value } \n| Files: ${ Object.keys( files || {} ) }` );
     // TEMPLATE
     if ( type === "template" )
-      setMode( {
-        template: value,
-        files: files || {}
-      } );
+      setMode( { template: value, files: files || {} } );
     // FILES
     if ( type === "files" ) {
       let mode = {}

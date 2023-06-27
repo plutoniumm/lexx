@@ -1,0 +1,19 @@
+<html>
+
+<head>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/marked/5.1.0/marked.min.js'></script>
+
+  <script>
+    fetch( 'index.md' )
+      .then( r => r.text() )
+      .then( text => {
+        document.body.innerHTML = marked( text )
+      } )
+  </script>
+</head>
+
+<body>
+  Hi
+</body>
+
+</html>
