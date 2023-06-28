@@ -4,12 +4,10 @@ import { StrictMode } from 'react';
 
 import App from './App.jsx';
 import Doc from './Doc.jsx';
-import Ext from './Ext.jsx';
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
-  { path: "/doc", element: <Doc /> },
-  { path: "/ext", element: <Ext /> }
+  { path: "/doc", element: <Doc /> }
 ]);
 
 createRoot(document.getElementById('root')).render(

@@ -1,4 +1,5 @@
 import { useSandpack } from "@codesandbox/sandpack-react";
+import { getHosted } from "./url";
 
 function Sidebar ( { adder } ) {
   const { sandpack } = useSandpack();
@@ -13,10 +14,32 @@ function Sidebar ( { adder } ) {
     adder( files );
   };
 
-  const openLink = () => window.open( document
-    .querySelector( "iframe.sp-preview-iframe" ).src,
-    "_blank"
-  );
+  const openLink = () => {
+    const ocsb = document
+      .querySelector( '[title="Open in CodeSandbox"]' );
+    let href = "";
+
+    if ( ocsb.tagName === "A" ) href = ocsb.href;
+    if ( ocsb.tagName === "BUTTON" ) {
+      const form = ocsb.querySelector( "form" );
+
+      const inputs = form.querySelectorAll( "input" );
+      let queries = {};
+      inputs.forEach( input =>
+        queries[ input.name ] = input.value
+      );
+      const orderedQuery = [ "parameters", "query", "environment" ]
+        .map( name => `${ name }=${ queries[ name ] }` )
+        .join( "&" );
+
+      href = `${ form.action }?${ orderedQuery }`;
+    };
+
+    if ( !href ) return 0; // Gaurd
+    console.log( "Opening: ", href );
+
+    getHosted( href ).then( alert );
+  };
 
   return (
     <div style={{ background: "var(--theme)" }}>
@@ -32,7 +55,7 @@ function Sidebar ( { adder } ) {
         <path d="M14 9 L3 9 3 29 23 29 23 18 M18 4 L28 4 28 14 M28 4 L14 18" />
       </svg>
     </div>
-  )
+  );
 };
 
 export default Sidebar;
