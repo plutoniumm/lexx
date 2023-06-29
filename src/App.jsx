@@ -68,7 +68,6 @@ function App () {
           recompileMode: "delayed"
         }}>
           <SandpackLayout>
-            <Sidebar adder={adder} />
             <SandpackFileExplorer />
             <SandpackCodeEditor
               closableTabs
@@ -77,9 +76,7 @@ function App () {
               wrapContent
             />
             <SandpackPreview>
-              <div id="consoleTag" className="p-rel o-50">
-                Console
-              </div>
+              <Sidebar adder={adder} />
               <SandpackConsole style={{ height: "15%" }} />
             </SandpackPreview>
           </SandpackLayout>

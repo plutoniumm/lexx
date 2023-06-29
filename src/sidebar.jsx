@@ -42,18 +42,30 @@ function Sidebar ( { adder } ) {
   };
 
   return (
-    <div style={{ background: "var(--theme)" }}>
-      <svg
-        className="quicon rpm-5" viewBox="0 0 32 32" onClick={addFile}
-      >
-        <path d="M16 2 L16 30 M2 16 L30 16" stroke="#fff" />
-      </svg>
-      <hr className="w-50 o-25" />
-      <svg
-        className="quicon rpm-5" viewBox="0 0 32 32" onClick={openLink}
-      >
-        <path d="M14 9 L3 9 3 29 23 29 23 18 M18 4 L28 4 28 14 M28 4 L14 18" />
-      </svg>
+    <div className="f fw" style={{ background: "var(--theme)", color: "#fff" }}>
+      <div className="m5" style={{
+        fontSize: "16px",
+        lineHeight: "32px",
+        color: "#fff6"
+      }}>Console</div>
+
+      <div className="tagchip" onClick={addFile}>
+        <svg strokeWidth="2"
+          className="quicon" viewBox="0 0 32 32"
+        >
+          <path d="M16 2 L16 30 M2 16 L30 16" stroke="#fff" />
+        </svg>
+        <div>Add File</div>
+      </div>
+      <div className="tagchip" onClick={openLink}>
+        <svg strokeWidth="2"
+          className="quicon" viewBox="0 0 32 32"
+        >
+          <path d="M14 9 L3 9 3 29 23 29 23 18 M18 4 L28 4 28 14 M28 4 L14 18" />
+        </svg>
+        <div>Open External</div>
+      </div>
+      <hr className="w-100 m0 o-25" />
     </div>
   );
 };

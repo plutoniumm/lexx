@@ -47,17 +47,30 @@ li {
 }
 
 .quicon {
-  display: block;
-  background: #334;
   fill: none;
-  height: 32px;
-  width: 32px;
-  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin: 2px 5px 4px 0;
+  border-radius: 5px;
 }
 
-#consoleTag {
-  color: #fff;
-  top: 14%;
-  left: 5px;
-  z-index: 100;
+.tagchip {
+  cursor: pointer;
+  display: flex;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 2px;
+  background: #334;
+  height: calc(24px + 4px + 2px);
+  transition: background 0.5s ease;
+}
+
+.tagchip:hover {
+  background: #2238;
+}
+
+.tagchip div {
+  line-height: 24px;
+  vertical-align: middle;
+  margin-right: 2px;
 }
