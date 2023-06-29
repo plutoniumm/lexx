@@ -21,6 +21,11 @@ function App () {
     template: starter.template,
     files: starter.files || {}
   } );
+  const [ expanded, setExpanded ] = useState( false );
+
+  const toggleExpansion = () =>
+    setExpanded( !expanded );
+
 
   const handleOptionChange = ( { value, type, files } ) => {
     if ( type !== "template" && type !== "files" ) return 0;
@@ -55,10 +60,10 @@ function App () {
       <>
         <div className="f j-bw ">
           <div className="m10 title p-rel">
-            <div className="p-abs" style={{ color: "#F0F", left: "2px" }}>
+            <div className="p-abs" style={{ color: "#F0F", left: "4px" }}>
               LEXX
             </div>
-            <div className="p-abs" style={{ color: "#0FF", left: "0" }}>
+            <div className="p-abs" style={{ color: "#0FF", left: "1px" }}>
               LEXX
             </div>
           </div>
@@ -76,8 +81,12 @@ function App () {
               wrapContent
             />
             <SandpackPreview>
-              <Sidebar adder={adder} />
-              <SandpackConsole style={{ height: "15%" }} />
+              <Sidebar
+                adder={adder}
+                toggle={toggleExpansion}
+                expanded={expanded}
+              />
+              {expanded && <SandpackConsole style={{ height: "15%" }} />}
             </SandpackPreview>
           </SandpackLayout>
         </SandpackProvider>
