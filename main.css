@@ -75,3 +75,7 @@ li {
   vertical-align: middle;
   margin-right: 3px;
 }
+
+.sp-layout {
+  --sp-layout-height: calc(100vh - 60px) !important;
+}
