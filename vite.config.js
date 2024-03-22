@@ -1,11 +1,8 @@
 import { defineConfig } from 'vite';
 import million from 'million/compiler';
-import { writeFile } from 'fs';
-import { resolve, join } from 'path';
 import react from '@vitejs/plugin-react';
 
 // HEADERS
-const buildDir = join( resolve(), 'build' );
 const headers = new Map( [
   [ 'X-Frame-Options', 'DENY' ],
   [ 'X-XSS-Protection', '1; mode=block' ],
@@ -25,6 +22,9 @@ let headersString = '';
 for ( const [ key, value ] of headers )
   headersString += `${ key }: ${ value }\n`;
 
+// import { writeFile } from 'fs';
+// import { resolve, join } from 'path';
+// const buildDir = join( resolve(), 'build' );
 // writeFile( join( buildDir, '_headers' ), headersString, ( err ) => {
 //   if ( err ) return console.error( err );
 //   console.log( 'Headers file created' );

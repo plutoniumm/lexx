@@ -13,7 +13,7 @@ import {
 } from "@codesandbox/sandpack-react";
 import { atomDark } from "@codesandbox/sandpack-themes";
 
-const startWith = "mdsvex";
+const startWith = "sveltevg";
 const starter = options.find( x => x.value === startWith );
 function App () {
   const [ mode, setMode ] = useState( starter );
@@ -38,8 +38,8 @@ function App () {
   if ( !window.isTop ) window.location.href = "/embed";
   return (
     <>
-      <div className="f j-bw ">
-        <img src="/lexx.svg" alt="" height="44" className="m5" />
+      <div className="f j-bw p5 rx10 p-fix logo">
+        <img src="/lexx.svg" alt="" height="44" />
         <Modes onload={startWith} onChange={handleOptionChange} />
       </div>
       <SandpackProvider {...mode} theme={atomDark} options={{

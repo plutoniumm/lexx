@@ -13,16 +13,36 @@
   <link rel="icon" type="image/svg+xml" sizes="any" href="./public/icon.svg">
 
   <script type="text/javascript" comment="fuck-react">
-    // check for iframe
     window.isTop = window.top === window.self;
-
-    // --sp-layout-height: calc(100vh - 40px - 20px)
-    const styleEl = document.createElement( 'style' );
-    styleEl.innerHTML = `.sp-layout {
-      --sp-layout-height: ${ isTop ? 'calc(100vh - 40px - 20px)' : '100vh' } !important;
-    }`;
-    document.head.appendChild( styleEl );
   </script>
+
+  <style>
+    .sp-layout {
+      --sp-layout-height: 100vh !important;
+    }
+
+    .logo {
+      bottom: 10px;
+      left: 10px;
+      background: var(--theme);
+      border: 1px solid #fff2;
+      z-index: 1000;
+      transition: all 0.1s ease-in-out;
+    }
+
+    .logo select {
+      margin-left: 20px;
+      display: none;
+    }
+
+    .logo:hover {
+      border: 1px solid #fff8;
+    }
+
+    .logo:hover select {
+      display: block;
+    }
+  </style>
 
   <title>Lexx</title>
 </head>

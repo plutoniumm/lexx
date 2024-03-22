@@ -17,7 +17,7 @@ function Modes ( { onChange, onload } ) {
     onChange( value ); // Call onChange prop & pass to parent
   };
   return (
-    <select className="m10 p5 rx5" onChange={handleOptionChange} value={selectedOption} style={selectedOption ? getSelectedChip( options.find( x => x.value === selectedOption ).color ) : {}}>
+    <select className="m5 p5 rx5" onChange={handleOptionChange} value={selectedOption} style={selectedOption ? getSelectedChip( options.find( x => x.value === selectedOption ).color ) : {}}>
       {options.map( ( { value, name } ) => (
         <option key={value} value={value}>
           {name}
