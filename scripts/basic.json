@@ -1,26 +1,20 @@
 [
   {
-    "name": "Svelte",
-    "value": "svelte",
-    "color": "#f40",
-    "type": "template"
-  },
-  {
     "name": "React",
     "value": "react",
     "color": "#5de",
     "type": "template"
   },
   {
-    "name": "Vue",
-    "value": "vue",
-    "color": "#4b8",
+    "name": "Preact",
+    "value": "vite-preact",
+    "color": "#64b",
     "type": "template"
   },
   {
-    "name": "Javascript",
-    "value": "vanilla",
-    "color": "#fc5",
+    "name": "Vue",
+    "value": "vue",
+    "color": "#4b8",
     "type": "template"
   },
   {

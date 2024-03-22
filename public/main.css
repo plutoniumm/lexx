@@ -6,6 +6,12 @@ body,
   height: 100vh;
 }
 
+select,
+select:focus {
+  outline: none;
+  min-width: 100px;
+}
+
 .title {
   color: #fff;
   font: italic 400 32px "Helvetica";

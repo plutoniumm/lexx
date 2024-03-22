@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "svelte": "^3.0.0",
+    "mdsvex": "^0.11.0"
+  },
+  "main": "/index.js",
+  "devDependencies": {}
+}

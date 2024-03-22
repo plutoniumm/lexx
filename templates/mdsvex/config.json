@@ -1,0 +1,12 @@
+{
+  "name": "Markdown",
+  "color": "#0f0",
+  "template": "svelte",
+  "active": "App.svelte",
+  "customSetup": {
+    "dependencies": {
+      "mdsvex": "latest",
+      "marked": "latest"
+    }
+  }
+}

@@ -1,8 +1,7 @@
-import { useState } from "react";
-import options from "./options.json";
-
 import { Sandpack } from "@codesandbox/sandpack-react";
 import { atomDark } from "@codesandbox/sandpack-themes";
+import options from "./options.json";
+import { useState } from "react";
 
 const startWith = "sveltevg"
 const starter = options.find( x => x.value === startWith );
@@ -14,18 +13,15 @@ function App () {
 
   const handleOptionChange = ( { value, type, files } ) => {
     if ( type !== "template" && type !== "files" ) return 0;
-    console.log( `Running Type: ${ type } \n| Value: ${ value } \n| Files: ${ Object.keys( files || {} ) }` );
-    // TEMPLATE
     if ( type === "template" )
       setMode( { template: value, files: files || {} } );
-    // FILES
     if ( type === "files" ) {
       let mode = {}
       if ( files ) mode = { template: value, files }
       else {
         const i = options.find( s =>
           s.value === value
-        );
+        );;
         mode = { template: i.template, files: i.files };
       }
       setMode( mode );

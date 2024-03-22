@@ -6,6 +6,12 @@
     "type": "template"
   },
   {
+    "name": "Preact",
+    "value": "vite-preact",
+    "color": "#64b",
+    "type": "template"
+  },
+  {
     "name": "Vue",
     "value": "vue",
     "color": "#4b8",
@@ -22,6 +28,29 @@
     "value": "solid",
     "color": "#47a",
     "type": "template"
+  },
+  {
+    "name": "Markdown",
+    "color": "#0f0",
+    "template": "svelte",
+    "value": "mdsvex",
+    "type": "files",
+    "files": {
+      "App.svelte": {
+        "active": true,
+        "code": "<script>\n  import { onMount } from \"svelte\";\n  import { marked } from \"marked\";\n  import content from \"./content.md\";\n\n  onMount(() => {\n    console.log(marked);\n    console.log(content);\n  });\n</script>\n\n<main>\n  <article style=\"border: 1px solid grey;\">\n    <!-- <svelte:component this={content} /> -->\n  </article>\n</main>\n\n<style>\n  article {\n    padding: 1rem;\n    margin-top: 1rem;\n  }\n</style>\n"
+      },
+      "content.md": "---\ntitle: hi\n---\n\n# hi\n```\n\n```bash\n$ md2html src/content.md\n```\n\nThis is a basic example of how to use `md2html` to convert a markdown file to an HTML file.\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>hi</title>\n</head>\n<body>\n  <h1>hi</h1>\n</body>\n</html>\n```\n",
+      "package.json": "{\n  \"dependencies\": {\n    \"svelte\": \"^3.0.0\",\n    \"mdsvex\": \"^0.11.0\"\n  },\n  \"main\": \"/index.js\",\n  \"devDependencies\": {}\n}",
+      "svelte.config.js": "import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';\nimport { mdsvex } from 'mdsvex';\n\nexport default {\n  extensions: [ '.svelte', '.mdx', '.md' ],\n  preprocess: [\n    vitePreprocess(),\n    mdsvex( {\n      extensions: [ '.mdx', '.md' ],\n      smartypants: {},\n    } ),\n  ],\n}\n",
+      "vite.config.js": "import { svelte } from '@sveltejs/vite-plugin-svelte';\nimport { defineConfig } from 'vite';\n\nexport default defineConfig( {\n  plugins: [ svelte() ],\n} )\n"
+    },
+    "customSetup": {
+      "dependencies": {
+        "mdsvex": "latest",
+        "marked": "latest"
+      }
+    }
   },
   {
     "name": "Svelte",

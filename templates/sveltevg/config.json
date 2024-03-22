@@ -1,5 +1,5 @@
 {
-  "name": "SVGs",
+  "name": "Svelte",
   "color": "#f40",
   "template": "svelte",
   "active": "App.svelte"

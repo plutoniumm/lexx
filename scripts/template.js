@@ -35,12 +35,17 @@ const newOps = dir( root, true ).map( ( value ) => {
   };
 
   const { name, color, template } = config;
-
-  return {
+  const response = {
     name, color, template, value,
     type: 'files',
     files: tree
   };
+
+  if ( config.customSetup ) {
+    response.customSetup = config.customSetup;
+  };
+
+  return response;
 } );
 
 const options = [ origOps, newOps ].flat( 1 );

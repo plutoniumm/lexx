@@ -1,53 +1,29 @@
 import React, { useState } from 'react';
-import { For } from "million/react";
 import options from "./options.json";
 
-const getChip = ( color ) => ( {
-  border: "1px solid " + color,
-  color: color,
-} );
 const getSelectedChip = ( color ) => ( {
   border: "1px solid " + color,
   backgroundColor: color,
   color: "#fff",
 } );
 
+// million-ignore
 function Modes ( { onChange, onload } ) {
   const [ selectedOption, setSelectedOption ] = useState( onload );
 
   const handleOptionChange = ( { target } ) => {
-    const { dataset } = target;
-    const value = JSON.parse( dataset.value );
-
+    const value = options.find( x => x.value === target.value );
     setSelectedOption( value.value );
-    onChange( value ); // Call the onChange prop and pass the selected value to the parent
+    onChange( value ); // Call onChange prop & pass to parent
   };
-
   return (
-    <ul className="selectors f m0 p0 flow-x-s">
-      <For each={options}>{
-        ( { value, name, color, type } ) => {
-          const checked = selectedOption === value;
-
-          return (
-            <li className="m10 p10 ptr tc rx20" key={value + name} style={
-              checked ? getSelectedChip( color ) : getChip( color )
-            }>
-              <label className="selector" htmlFor={value}>{name}</label>
-              <input
-                className="p5 d-n"
-                id={value}
-                type="radio"
-                value={value}
-                data-value={JSON.stringify( { value, type } )}
-                checked={checked}
-                onChange={handleOptionChange}
-              />
-            </li>
-          )
-        }
-      }</For>
-    </ul>
+    <select className="m10 p5 rx5" onChange={handleOptionChange} value={selectedOption} style={selectedOption ? getSelectedChip( options.find( x => x.value === selectedOption ).color ) : {}}>
+      {options.map( ( { value, name } ) => (
+        <option key={value} value={value}>
+          {name}
+        </option>
+      ) )}
+    </select>
   )
 };
 
