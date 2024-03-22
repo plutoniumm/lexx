@@ -3,11 +3,11 @@ import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 
 import App from './App.jsx';
-import Doc from './Doc.jsx';
+import Embed from './Embed.jsx';
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
-  { path: "/doc", element: <Doc /> }
+  { path: "/embed", element: <Embed /> }
 ]);
 
 createRoot(document.getElementById('root')).render(

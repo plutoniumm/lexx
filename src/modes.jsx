@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { block, For } from "million/react";
+import { For } from "million/react";
 import options from "./options.json";
 
 const getChip = ( color ) => ( {
@@ -12,7 +12,7 @@ const getSelectedChip = ( color ) => ( {
   color: "#fff",
 } );
 
-const Modes = /* @optimize */ block( function Modes ( { onChange, onload } ) {
+function Modes ( { onChange, onload } ) {
   const [ selectedOption, setSelectedOption ] = useState( onload );
 
   const handleOptionChange = ( { target } ) => {
@@ -48,7 +48,7 @@ const Modes = /* @optimize */ block( function Modes ( { onChange, onload } ) {
         }
       }</For>
     </ul>
-  );
-} );
+  )
+};
 
 export default Modes;

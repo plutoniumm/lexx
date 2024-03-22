@@ -11,8 +11,14 @@ const headers = new Map( [
   [ 'X-XSS-Protection', '1; mode=block' ],
   [ 'X-Content-Type-Options', 'nosniff' ],
   [ 'Referrer-Policy', 'same-origin' ],
-  [ 'Permissions-Policy', 'accelerometer=(), autoplay=(), camera=(), document-domain=(), encrypted-media=(), fullscreen=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), sync-xhr=(), usb=(), xr-spatial-tracking=(), geolocation=()' ],
-  [ 'Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload' ],
+  [
+    'Permissions-Policy',
+    'accelerometer=(), autoplay=(), camera=(), document-domain=(), encrypted-media=(), fullscreen=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), sync-xhr=(), usb=(), xr-spatial-tracking=(), geolocation=()'
+  ],
+  [
+    'Strict-Transport-Security',
+    'max-age=31536000; includeSubDomains; preload'
+  ],
 ] );
 
 let headersString = '';
@@ -25,11 +31,13 @@ for ( const [ key, value ] of headers )
 // } );
 // END HEADERS
 
-// https://vitejs.dev/config/
 export default defineConfig( {
   plugins: [
-    million.vite( { mode: 'react', optimize: true } ),
-    react()
+    million.vite( {
+      auto: {
+        threshold: 0.05,
+      }
+    } ), react()
   ],
   server: {
     port: 3000,

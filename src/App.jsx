@@ -3,7 +3,6 @@ import Sidebar from "./sidebar";
 import { useState } from "react";
 import options from "./options.json";
 
-import { Sandpack } from "@codesandbox/sandpack-react";
 import {
   SandpackProvider,
   SandpackLayout,
@@ -55,58 +54,46 @@ function App () {
   window.onmessage = ( { data } ) =>
     handleOptionChange( data );
 
-  if ( window.isTop )
-    return (
-      <>
-        <div className="f j-bw ">
-          <div className="m10 title p-rel">
-            <div className="p-abs" style={{ color: "#F0F", left: "4px" }}>
-              LEXX
-            </div>
-            <div className="p-abs" style={{ color: "#0FF", left: "1px" }}>
-              LEXX
-            </div>
+  if ( !window.isTop ) {
+    window.location.href = "/embed"
+  }
+
+  return (
+    <>
+      <div className="f j-bw ">
+        <div className="m10 title p-rel">
+          <div className="p-abs" style={{ color: "#F0F", left: "4px" }}>
+            LEXX
           </div>
-          <Modes onload={startWith} onChange={handleOptionChange} />
+          <div className="p-abs" style={{ color: "#0FF", left: "1px" }}>
+            LEXX
+          </div>
         </div>
-        <SandpackProvider {...mode} theme={atomDark} options={{
-          recompileMode: "delayed"
-        }}>
-          <SandpackLayout>
-            <SandpackFileExplorer />
-            <SandpackCodeEditor
-              closableTabs
-              showTabs
-              showLineNumbers
-              wrapContent
+        <Modes onload={startWith} onChange={handleOptionChange} />
+      </div>
+      <SandpackProvider {...mode} theme={atomDark} options={{
+        recompileMode: "delayed"
+      }}>
+        <SandpackLayout>
+          <SandpackFileExplorer />
+          <SandpackCodeEditor
+            closableTabs
+            showTabs
+            showLineNumbers
+            wrapContent
+          />
+          <SandpackPreview>
+            <Sidebar
+              adder={adder}
+              toggle={toggleExpansion}
+              expanded={expanded}
             />
-            <SandpackPreview>
-              <Sidebar
-                adder={adder}
-                toggle={toggleExpansion}
-                expanded={expanded}
-              />
-              {expanded && <SandpackConsole style={{ height: "15%" }} />}
-            </SandpackPreview>
-          </SandpackLayout>
-        </SandpackProvider>
-      </>
-    );
-  else
-    return (
-      <Sandpack
-        theme={atomDark}
-        {...mode}
-        options={{
-          showInlineErrors: true,
-          showReadOnly: false,
-          showLineNumbers: true,
-          showConsoleButton: true,
-          closableTabs: true,
-          wrapContent: true,
-        }}
-      />
-    )
+            {expanded && <SandpackConsole style={{ height: "15%" }} />}
+          </SandpackPreview>
+        </SandpackLayout>
+      </SandpackProvider>
+    </>
+  );
 };
 
 export default App;
