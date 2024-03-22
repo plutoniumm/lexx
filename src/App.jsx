@@ -13,13 +13,10 @@ import {
 } from "@codesandbox/sandpack-react";
 import { atomDark } from "@codesandbox/sandpack-themes";
 
-const startWith = "vue";
+const startWith = "mdsvex";
 const starter = options.find( x => x.value === startWith );
 function App () {
-  const [ mode, setMode ] = useState( {
-    template: starter.template,
-    files: starter.files || {}
-  } );
+  const [ mode, setMode ] = useState( starter );
   const [ expanded, setExpanded ] = useState( false );
 
   const toggleExpansion = () => setExpanded( !expanded );

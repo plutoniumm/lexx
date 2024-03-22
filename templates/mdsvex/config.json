@@ -1,12 +1,16 @@
 {
   "name": "Markdown",
-  "color": "#0f0",
+  "color": "#5af",
   "template": "svelte",
-  "active": "App.svelte",
+  "active": "content.md",
   "customSetup": {
     "dependencies": {
-      "mdsvex": "latest",
-      "marked": "latest"
+      "marked": "latest",
+      "js-yaml": "latest",
+      "highlight.js": "latest",
+      "marked-highlight": "latest",
+      "marked-katex-extension": "latest",
+      "katex": "latest"
     }
   }
 }

@@ -35,7 +35,7 @@ export default defineConfig( {
   plugins: [
     million.vite( {
       auto: {
-        threshold: 0.05,
+        threshold: 0.01,
       }
     } ), react()
   ],

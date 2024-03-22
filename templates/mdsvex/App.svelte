@@ -1,23 +1,34 @@
 <script>
-  import { onMount } from "svelte";
-  import { marked } from "marked";
+  import render from "./parse.js";
   import content from "./content.md";
 
-  onMount(() => {
-    console.log(marked);
-    console.log(content);
-  });
+  function proc(content) {
+    let string = "";
+    try {
+      return render(content).html;
+    } catch (e) {
+      console.log("ERROR: ", e);
+    }
+
+    return string;
+  }
 </script>
 
-<main>
-  <article style="border: 1px solid grey;">
-    <!-- <svelte:component this={content} /> -->
-  </article>
-</main>
+<svelte:head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</svelte:head>
 
-<style>
-  article {
-    padding: 1rem;
-    margin-top: 1rem;
-  }
-</style>
+<article>
+  {@html proc(content)}
+</article>

@@ -1,6 +1,7 @@
 import { useSandpack } from "@codesandbox/sandpack-react";
 import { getHosted } from "./url";
 
+// million-ignore
 function Sidebar ( { adder, toggle, expanded } ) {
   const { sandpack } = useSandpack();
   const { files } = sandpack;
