@@ -12,8 +12,40 @@
   <link rel="apple-touch-icon" sizes="512x512" href="/assets/icon-515f46ff.svg">
   <link rel="icon" type="image/svg+xml" sizes="any" href="/assets/icon-515f46ff.svg">
 
+  <script type="text/javascript" comment="fuck-react">
+    window.isTop = window.top === window.self;
+  </script>
+
+  <style>
+    .sp-layout {
+      --sp-layout-height: 100vh !important;
+    }
+
+    .logo {
+      bottom: 10px;
+      left: 10px;
+      background: var(--theme);
+      border: 1px solid #fff2;
+      z-index: 1000;
+      transition: all 0.1s ease-in-out;
+    }
+
+    .logo select {
+      margin-left: 20px;
+      display: none;
+    }
+
+    .logo:hover {
+      border: 1px solid #fff8;
+    }
+
+    .logo:hover select {
+      display: block;
+    }
+  </style>
+
   <title>Lexx</title>
-  <script type="module" crossorigin src="/assets/index-6bb83a90.js"></script>
+  <script type="module" crossorigin src="/assets/index-076e7614.js"></script>
 </head>
 
 <body xmlns="http://www.w3.org/2000/svg">
