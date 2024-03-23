@@ -1,0 +1,11 @@
+{
+  "name": "C++",
+  "color": "#f58",
+  "template": "vanilla",
+  "active": "main.cpp",
+  "customSetup": {
+    "dependencies": {
+      "xterm": "latest"
+    }
+  }
+}
