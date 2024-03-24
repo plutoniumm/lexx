@@ -44,6 +44,9 @@ const newOps = dir( root, true ).map( ( value ) => {
   if ( config.customSetup ) {
     response.customSetup = config.customSetup;
   };
+  if ( config.options ) {
+    response.options = config.options;
+  };
 
   return response;
 } );

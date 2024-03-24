@@ -9,11 +9,8 @@
 >
   <defs>
     <linearGradient id="x" x1="0" y1="0" x2="100%" y2="100%">
-      <stop offset="0" stop-color="#b2F"></stop><stop
-        offset="1"
-        stop-color="#44f"
-      >
-      </stop>
+      <stop offset="0" stop-color="#b2F"></stop>
+      <stop offset="1" stop-color="#44f"></stop>
     </linearGradient>
     <filter id="neo">
       <feDropShadow dx="0.5" dy="0.5" stdDeviation="0.1" flood-color="#44f">

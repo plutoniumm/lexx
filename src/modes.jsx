@@ -3,7 +3,7 @@ import options from "./options.json";
 
 const getSelectedChip = ( color ) => ( {
   border: "1px solid " + color,
-  backgroundColor: color,
+  background: color,
   color: "#fff",
 } );
 

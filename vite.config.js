@@ -1,6 +1,21 @@
 import { defineConfig } from 'vite';
 import million from 'million/compiler';
 import react from '@vitejs/plugin-react';
+import { exec } from 'child_process';
+
+
+function freeload () {
+  return {
+    name: 'custom-hmr',
+    enforce: 'post',
+    handleHotUpdate ( { file, server } ) {
+      if ( file.includes( 'templates/' ) ) {
+        exec( 'node scripts/template.js', ( err, out, sterr ) => {
+        } );
+      }
+    },
+  }
+}
 
 // HEADERS
 const headers = new Map( [
@@ -33,11 +48,13 @@ for ( const [ key, value ] of headers )
 
 export default defineConfig( {
   plugins: [
+    freeload(),
     million.vite( {
       auto: {
         threshold: 0.01,
       }
-    } ), react()
+    } ),
+    react(),
   ],
   server: {
     port: 3000,

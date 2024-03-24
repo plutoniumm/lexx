@@ -50,6 +50,22 @@
     }
   },
   {
+    "name": "Jupyter",
+    "color": "#e73",
+    "template": "static",
+    "value": "jupyter",
+    "type": "files",
+    "files": {
+      "index.html": "<html>\n\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n  <link rel=\"stylesheet\" href=\"https://pyscript.net/releases/2024.3.1/core.css\">\n  <script type=\"module\" src=\"https://pyscript.net/releases/2024.3.1/core.js\"></script>\n\n  <script>\n    async function requested ( url, options = {} ) {\n      const res = await fetch( url, options );\n      if ( !res.ok ) {\n        throw new Error( res.statusText );\n      }\n      let contentType = \"application/text\";\n      if ( res.headers ) {\n        contentType = res.headers.get( 'content-type' );\n      };\n      if ( contentType ) {\n        if ( contentType.includes( 'application/json' ) ) {\n          return res.json();\n        } else if ( contentType.includes( 'text/plain' ) ) {\n          return res.text();\n        } else if ( contentType.includes( 'text/html' ) ) {\n          return res.text();\n        } else {\n          return res.blob();\n        }\n      } else {\n        return res.text();\n      }\n    };\n\n    // wrapper to log and return req\n    async function request ( url, options = {} ) {\n      let res = null;\n      try {\n        res = await requested( url, options );\n        console.log( res.slice( 0, 100 ) );\n      } catch ( e ) {\n        console.error( e );\n        res = e;\n      }\n      return res;\n    };\n  </script>\n</head>\n\n<body>\n  <!-- <div id=\"term\" style=\"background: #000;color: #fff;font-family: monospace;\">Starting Python...</div> -->\n\n  <script type=\"mpy-editor\">\n    import sys\n    print(sys.version)\n  </script>\n\n  <!-- <script defer type=\"py\" src=\"./utils.py\" config=\"pyscript.json\"></script> -->\n  <style>\n    #term {\n      min-height: 300px;\n    }\n\n    html,\n    body {\n      width: 100vw;\n      overflow-x: hidden;\n      padding: 0;\n      margin: 0;\n    }\n  </style>\n</body>\n\n</html>",
+      "index.py": {
+        "active": true,
+        "code": "import code\n\ncode.interact()"
+      },
+      "pyscript.json": "{\n  \"packages\": []\n}",
+      "utils.py": "import code\n\ncode.interact()"
+    }
+  },
+  {
     "name": "Markdown",
     "color": "#5af",
     "template": "svelte",
@@ -76,6 +92,22 @@
     }
   },
   {
+    "name": "Python",
+    "color": "linear-gradient(135deg, #57B 0%, #57B 50%, #fd4 50%, #fd4 100%)",
+    "template": "static",
+    "value": "python",
+    "type": "files",
+    "files": {
+      "index.html": "<html>\n\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n  <link rel=\"stylesheet\" href=\"https://pyscript.net/releases/2024.3.1/core.css\">\n  <script type=\"module\" src=\"https://pyscript.net/releases/2024.3.1/core.js\"></script>\n\n  <script>\n    async function requested ( url, options = {} ) {\n      const res = await fetch( url, options );\n      if ( !res.ok ) {\n        throw new Error( res.statusText );\n      }\n      let contentType = \"application/text\";\n      if ( res.headers ) {\n        contentType = res.headers.get( 'content-type' );\n      };\n      if ( contentType ) {\n        if ( contentType.includes( 'application/json' ) ) {\n          return res.json();\n        } else if ( contentType.includes( 'text/plain' ) ) {\n          return res.text();\n        } else if ( contentType.includes( 'text/html' ) ) {\n          return res.text();\n        } else {\n          return res.blob();\n        }\n      } else {\n        return res.text();\n      }\n    };\n\n    // wrapper to log and return req\n    async function request ( url, options = {} ) {\n      let res = null;\n      try {\n        res = await requested( url, options );\n        console.log( res.slice( 0, 100 ) );\n      } catch ( e ) {\n        console.error( e );\n        res = e;\n      }\n      return res;\n    };\n  </script>\n</head>\n\n<body>\n  <div id=\"term\" style=\"background: #000;color: #fff;font-family: monospace;\">Starting Python...</div>\n\n  <script defer type=\"py\" src=\"./utils.py\" config=\"pyscript.json\"></script>\n  <script defer type=\"py\" src=\"./index.py\" config=\"pyscript.json\"></script>\n\n  <style>\n    #term {\n      min-height: 300px;\n    }\n\n    html,\n    body {\n      width: 100vw;\n      overflow-x: hidden;\n      padding: 0;\n      margin: 0;\n      background: #000;\n    }\n  </style>\n</body>\n\n</html>",
+      "index.py": {
+        "active": true,
+        "code": "from io import StringIO\nimport pandas as pd\n\ndef gh(repo):\n  return f\"https://raw.githubusercontent.com/{repo}\"\n\nasync def main():\n  print(\"Running main script!\")\n  res = await window.request(\n    gh(\"plutoniumm/ifactorial\") + \\\n    \"/main/src/routes/data/R1.csv\"\n  )\n\n  df = pd.read_csv(StringIO(res))\n  print(df.head())\n\nasyncio.create_task(main())"
+      },
+      "pyscript.json": "{\n  \"packages\": [\n    \"pandas\"\n  ]\n}",
+      "utils.py": "from pyscript import document, window\nimport asyncio\n\nout_div = document.querySelector(\"#term\")\nterminal = []\ndef print(*args):\n  terminal.append(\" \".join([str(arg) for arg in args]))\n  out_div.innerText = \"\\n >\".join(terminal)"
+    }
+  },
+  {
     "name": "Svelte",
     "color": "#f40",
     "template": "svelte",
@@ -84,7 +116,7 @@
     "files": {
       "App.svelte": {
         "active": true,
-        "code": "<script></script>\n\n<svg\n  viewBox=\"0 0 100 100\"\n  width=\"100\"\n  height=\"100\"\n  font-family=\"Helvetica\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n>\n  <defs>\n    <linearGradient id=\"x\" x1=\"0\" y1=\"0\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0\" stop-color=\"#b2F\"></stop><stop\n        offset=\"1\"\n        stop-color=\"#44f\"\n      >\n      </stop>\n    </linearGradient>\n    <filter id=\"neo\">\n      <feDropShadow dx=\"0.5\" dy=\"0.5\" stdDeviation=\"0.1\" flood-color=\"#44f\">\n      </feDropShadow>\n      <feDropShadow dx=\"-0.5\" dy=\"-0.5\" stdDeviation=\"0.1\" flood-color=\"#b2F\">\n      </feDropShadow>\n    </filter>\n    <filter id=\"shadow\">\n      <feDropShadow dx=\"2\" dy=\"2\" stdDeviation=\"2\" flood-color=\"#2228\">\n      </feDropShadow>\n    </filter>\n  </defs>\n  <rect\n    filter=\"url(#neo)\"\n    fill=\"url(#x)\"\n    x=\"1\"\n    y=\"1\"\n    width=\"98\"\n    height=\"98\"\n    rx=\"10\"\n  >\n  </rect>\n  <path\n    fill=\"#fff\"\n    filter=\"url(#shadow)\"\n    transform=\"scale(0.15) translate(72.5,85)\"\n    d=\"M380 125l-9-1s-96-7-134 119c-34 110-111 105-115 105h-5a102 102 0 015-204c35 0 67 18 86 47l16-11a122 122 0 10-100 188c17 0 97-6 132-119 33-110 111-105 115-105h7a102 102 0 11-94 157l-16 11a122 122 0 10112-187z\"\n  >\n  </path>\n</svg>\n"
+        "code": "<script></script>\n\n<svg\n  viewBox=\"0 0 100 100\"\n  width=\"100\"\n  height=\"100\"\n  font-family=\"Helvetica\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n>\n  <defs>\n    <linearGradient id=\"x\" x1=\"0\" y1=\"0\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0\" stop-color=\"#b2F\"></stop>\n      <stop offset=\"1\" stop-color=\"#44f\"></stop>\n    </linearGradient>\n    <filter id=\"neo\">\n      <feDropShadow dx=\"0.5\" dy=\"0.5\" stdDeviation=\"0.1\" flood-color=\"#44f\">\n      </feDropShadow>\n      <feDropShadow dx=\"-0.5\" dy=\"-0.5\" stdDeviation=\"0.1\" flood-color=\"#b2F\">\n      </feDropShadow>\n    </filter>\n    <filter id=\"shadow\">\n      <feDropShadow dx=\"2\" dy=\"2\" stdDeviation=\"2\" flood-color=\"#2228\">\n      </feDropShadow>\n    </filter>\n  </defs>\n  <rect\n    filter=\"url(#neo)\"\n    fill=\"url(#x)\"\n    x=\"1\"\n    y=\"1\"\n    width=\"98\"\n    height=\"98\"\n    rx=\"10\"\n  >\n  </rect>\n  <path\n    fill=\"#fff\"\n    filter=\"url(#shadow)\"\n    transform=\"scale(0.15) translate(72.5,85)\"\n    d=\"M380 125l-9-1s-96-7-134 119c-34 110-111 105-115 105h-5a102 102 0 015-204c35 0 67 18 86 47l16-11a122 122 0 10-100 188c17 0 97-6 132-119 33-110 111-105 115-105h7a102 102 0 11-94 157l-16 11a122 122 0 10112-187z\"\n  >\n  </path>\n</svg>\n"
       },
       "styles.css": "svg {\n  width: 500px;\n  height: 500px;\n  border: 1px solid #888;\n}"
     }

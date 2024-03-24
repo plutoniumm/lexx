@@ -1,0 +1,6 @@
+{
+  "name": "Python",
+  "color": "linear-gradient(135deg, #57B 0%, #57B 50%, #fd4 50%, #fd4 100%)",
+  "template": "static",
+  "active": "index.py"
+}

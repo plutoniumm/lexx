@@ -1,0 +1,71 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.3.1/core.css">
+  <script type="module" src="https://pyscript.net/releases/2024.3.1/core.js"></script>
+
+  <script>
+    async function requested ( url, options = {} ) {
+      const res = await fetch( url, options );
+      if ( !res.ok ) {
+        throw new Error( res.statusText );
+      }
+      let contentType = "application/text";
+      if ( res.headers ) {
+        contentType = res.headers.get( 'content-type' );
+      };
+      if ( contentType ) {
+        if ( contentType.includes( 'application/json' ) ) {
+          return res.json();
+        } else if ( contentType.includes( 'text/plain' ) ) {
+          return res.text();
+        } else if ( contentType.includes( 'text/html' ) ) {
+          return res.text();
+        } else {
+          return res.blob();
+        }
+      } else {
+        return res.text();
+      }
+    };
+
+    // wrapper to log and return req
+    async function request ( url, options = {} ) {
+      let res = null;
+      try {
+        res = await requested( url, options );
+        console.log( res.slice( 0, 100 ) );
+      } catch ( e ) {
+        console.error( e );
+        res = e;
+      }
+      return res;
+    };
+  </script>
+</head>
+
+<body>
+  <div id="term" style="background: #000;color: #fff;font-family: monospace;">Starting Python...</div>
+
+  <script defer type="py" src="./utils.py" config="pyscript.json"></script>
+  <script defer type="py" src="./index.py" config="pyscript.json"></script>
+
+  <style>
+    #term {
+      min-height: 300px;
+    }
+
+    html,
+    body {
+      width: 100vw;
+      overflow-x: hidden;
+      padding: 0;
+      margin: 0;
+      background: #000;
+    }
+  </style>
+</body>
+
+</html>

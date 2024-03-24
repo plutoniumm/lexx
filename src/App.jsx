@@ -48,8 +48,8 @@ function App () {
         <SandpackLayout>
           <SandpackFileExplorer />
           <SandpackCodeEditor
-            closableTabs
-            showTabs
+            showTabs={false}
+            showInlineErrors
             showLineNumbers
             wrapContent
           />
