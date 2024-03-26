@@ -1,0 +1,11 @@
+{
+  "name": "Go",
+  "color": "#6ce",
+  "template": "static",
+  "active": "run.go",
+  "customSetup": {
+    "dependencies": {
+      "xterm": "latest"
+    }
+  }
+}

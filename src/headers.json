@@ -1,0 +1,62 @@
+[
+  {
+    "name": "React",
+    "value": "react",
+    "color": "#5de",
+    "type": "template"
+  },
+  {
+    "name": "Preact",
+    "value": "vite-preact",
+    "color": "#64b",
+    "type": "template"
+  },
+  {
+    "name": "Vue",
+    "value": "vue",
+    "color": "#4b8",
+    "type": "template"
+  },
+  {
+    "name": "HTML",
+    "value": "static",
+    "color": "#f80",
+    "type": "template"
+  },
+  {
+    "name": "Solid",
+    "value": "solid",
+    "color": "#47a",
+    "type": "template"
+  },
+  {
+    "name": "C++",
+    "value": "cpp",
+    "color": "#f58",
+    "type": "files"
+  },
+  {
+    "name": "Go",
+    "value": "go",
+    "color": "#6ce",
+    "type": "files"
+  },
+  {
+    "name": "Markdown",
+    "value": "mdsvex",
+    "color": "#5af",
+    "type": "files"
+  },
+  {
+    "name": "Python",
+    "value": "python",
+    "color": "linear-gradient(135deg, #57B 0%, #57B 50%, #fd4 50%, #fd4 100%)",
+    "type": "files"
+  },
+  {
+    "name": "Svelte",
+    "value": "sveltevg",
+    "color": "#f40",
+    "type": "files"
+  }
+]

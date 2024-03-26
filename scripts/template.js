@@ -64,8 +64,23 @@ for ( let i = 0;i < options.length;i++ ) {
 };
 
 
+// create seperate headers.json with names and values
+//  and json/<value>.json with the rest of the data
 writeFileSync( 'src/options.json',
   JSON.stringify( uniqueOps, null, 2 )
+);
+writeFileSync( 'src/headers.json',
+  JSON.stringify(
+    uniqueOps.map( ( { name, value, color, type } ) => ( { name, value, color, type } ) ),
+    null, 2
+  )
+);
+
+// create json files
+uniqueOps.forEach( ( { value, ...data } ) =>
+  writeFileSync( `public/json/${ value }.json`,
+    JSON.stringify( data, null, 2 )
+  )
 );
 
 console.log( '\x1b[32m%s\x1b[0m', 'Generated Templates!' );
