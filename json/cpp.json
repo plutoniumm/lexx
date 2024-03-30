@@ -1,0 +1,19 @@
+{
+  "name": "C++",
+  "color": "#f58",
+  "template": "vanilla",
+  "type": "files",
+  "files": {
+    "index.html": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <script src=\"./index.js\"></script>\n</head>\n\n<body>\n  <div id=\"terminal\"></div>\n  <button id=\"compile\">Compile</button>\n\n  <style>\n    html,\n    body {\n      margin: 0;\n      padding: 0;\n      max-width: 100vw;\n      overflow-x: hidden;\n    }\n\n    body {\n      background: #222;\n    }\n\n    #compile {\n      display: block;\n      padding: 10px;\n      margin: 10px auto;\n      width: calc(100% - 20px);\n      max-width: 300px;\n      border-radius: 5px;\n      color: #fff;\n      cursor: pointer;\n      background: #334;\n      border: 0;\n      transition: background 0.1s ease-in-out;\n    }\n\n    #compile:hover {\n      background: #223;\n    }\n\n    .terminal * {\n      background-color: #000 !important;\n    }\n\n    #terminal {\n      max-height: calc(100vh - 2em);\n    }\n  </style>\n</body>\n\n</html>",
+    "index.js": "import { Terminal } from 'xterm';\nimport 'xterm/css/xterm.css';\n\nwindow.proxy_prefix = 'https://raw.githubusercontent.com/plutoniumm/lexx/master/wassemblers/cpp/';\n\nconst tbox = new Terminal( {\n  cursorBlink: true,\n  convertEol: true,\n  disableStdin: true,\n} );\nconst term = document.querySelector( '#terminal' );\ntbox.open( term );\ntbox.write( 'Terminal Ready. Compile Now!\\n' );\n\nclass WorkerAPI {\n  constructor () {\n    this.nextResponseId = 0;\n    this.responseCBs = new Map();\n    const channel = new MessageChannel();\n    this.port = channel.port1;\n    this.port.onmessage = this.onmessage.bind( this );\n\n    const remotePort = channel.port2;\n    const remote = window.proxy_prefix + 'worker.js';\n    fetch( remote ).then( res => res.blob() )\n      .then( blob => {\n        this.worker = new Worker( URL.createObjectURL( blob ) );\n        this.worker.postMessage( {\n          id: 'constructor',\n          mod: window.proxy_prefix,\n          data: remotePort\n        }, [ remotePort ] );\n      } );\n  }\n\n  terminate () {\n    this.worker.terminate();\n  }\n\n  async compileToAssembly ( options ) {\n    const responseId = this.nextResponseId++;\n    const responsePromise = new Promise( ( resolve, reject ) => {\n      this.responseCBs.set( responseId, { resolve, reject } );\n    } );\n    this.port.postMessage( {\n      id: 'compileToAssembly',\n      responseId,\n      mod: window.proxy_prefix,\n      data: options\n    } );\n    return await responsePromise;\n  }\n\n  compileLinkRun ( contents ) {\n    this.port.postMessage( {\n      id: 'compileLinkRun',\n      mod: window.proxy_prefix,\n      data: contents\n    } );\n  }\n\n  onmessage ( event ) {\n    switch ( event.data.id ) {\n      case 'write':\n        tbox.write( event.data.data );\n        break;\n\n      case 'compileToAssembly': {\n        const responseId = event.data.responseId;\n        const promise = this.responseCBs.get( responseId );\n        if ( promise ) {\n          this.responseCBs.delete( responseId );\n          promise.resolve( event.data.data );\n        };\n        break;\n      }\n    }\n  }\n};\n\nlet api;\ndocument\n  .querySelector( '#compile' )\n  .addEventListener( 'click', async () => {\n    api = new WorkerAPI();\n    const start = await import( './main.cpp' );\n    api.compileLinkRun( start.default );\n  } );",
+    "main.cpp": {
+      "active": true,
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n  cout << \"Hello, World!\" << endl;\n  return 0;\n}"
+    }
+  },
+  "customSetup": {
+    "dependencies": {
+      "xterm": "latest"
+    }
+  }
+}
