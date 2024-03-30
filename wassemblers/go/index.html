@@ -1,0 +1,27 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="wasm_exec.js"></script>
+  <script src="playground.js"></script>
+  <script src="./init.js"></script>
+</head>
+
+<body>
+  <div id="banner">
+    <input type="button" value="Loading..." id="run" disabled />
+  </div>
+  <div id="wrap">
+    <textarea id="code" name="code" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false">
+package main
+
+func main() {
+	println(&#34;Hello, WebAssembly playground!&#34;)
+}
+</textarea>
+  </div>
+  <div id="output"></div>
+</body>
+
+</html>

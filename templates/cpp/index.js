@@ -1,7 +1,7 @@
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 
-window.proxy_prefix = 'https://raw.githubusercontent.com/plutoniumm/wassemblers/master/cpp/';
+window.proxy_prefix = 'https://raw.githubusercontent.com/plutoniumm/lexx/master/wassemblers/cpp/';
 
 const tbox = new Terminal( {
   cursorBlink: true,

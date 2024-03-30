@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+  <meta name="viewport" content="width=480" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #all {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      grid-template-columns: auto
+    }
+
+    .toolbar-left {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .toolbar-right {
+      grid-area: 1 / 3 / 2 / 4;
+    }
+
+    .font-size {
+      float: left;
+      padding: 0 1em;
+      font-size: small;
+    }
+
+    html {
+      background: #fff;
+      filter: invert(1);
+    }
+  </style>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js"></script>
+
+  <div id="all" class="horiz">
+    <button id="run">run</button>
+    <div style="display: flex;width: 100%;">
+      <div style="display: block;flex:1" id="editor"></div>
+      <pre style="display: block;flex:1;overflow: hidden;max-width: 50%;" id="term"></pre>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+</body>
+
+</html>
