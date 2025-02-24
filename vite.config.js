@@ -1,5 +1,5 @@
+import MillionLint from '@million/lint';
 import { defineConfig } from 'vite';
-import million from 'million/compiler';
 import react from '@vitejs/plugin-react';
 import { exec } from 'child_process';
 
@@ -14,7 +14,7 @@ function freeload () {
         } );
       }
     },
-  }
+  };
 }
 
 // HEADERS
@@ -48,13 +48,9 @@ for ( const [ key, value ] of headers )
 
 export default defineConfig( {
   plugins: [
+    MillionLint.vite( { enabled: true } ),
     freeload(),
-    million.vite( {
-      auto: {
-        threshold: 0.01,
-      }
-    } ),
-    react(),
+    react()
   ],
   server: {
     port: 3000,

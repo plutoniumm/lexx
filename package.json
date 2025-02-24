@@ -10,12 +10,13 @@
     "postdeploy": "rm -rf dist"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^2.13.5",
+    "@codesandbox/sandpack-react": "^2.20.0",
     "@codesandbox/sandpack-themes": "^2.0.21",
+    "@million/lint": "^1.0.14",
     "million": "^3.0.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
