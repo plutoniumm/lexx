@@ -6,10 +6,16 @@ body,
   height: 100vh;
 }
 
+header {
+  background: var(--theme);
+}
+
 select,
 select:focus {
   outline: none;
-  min-width: 100px;
+  background: var(--theme);
+  text-transform: capitalize;
+  font-size: 16px;
 }
 
 .title {
@@ -70,6 +76,7 @@ li {
   background: #334;
   height: calc(24px + 4px + 2px);
   transition: background 0.5s ease;
+  vertical-align: center;
 }
 
 .tagchip:hover {

@@ -1,0 +1,25 @@
+{
+  "name": "Markdown",
+  "color": "#5af",
+  "template": "svelte",
+  "type": "files",
+  "files": {
+    "App.svelte": "<script>\n  import render from \"./parse.js\";\n  import content from \"./content.md\";\n\n  function proc(content) {\n    let string = \"\";\n    try {\n      return render(content).html;\n    } catch (e) {\n      console.log(\"ERROR: \", e);\n    }\n\n    return string;\n  }\n</script>\n\n<svelte:head>\n  <link\n    rel=\"stylesheet\"\n    href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css\"\n    crossorigin=\"anonymous\"\n    referrerpolicy=\"no-referrer\"\n  />\n  <link\n    rel=\"stylesheet\"\n    href=\"https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css\"\n    crossorigin=\"anonymous\"\n    referrerpolicy=\"no-referrer\"\n  />\n</svelte:head>\n\n<article>\n  {@html proc(content)}\n</article>\n",
+    "content.md": {
+      "active": true,
+      "code": "---\nproxy: https://x.manav.ch/p2/proxy?url=\ntitle: \"Usage Guide\"\n---\n\n# &title;\n```bash\nmd2html src/content.md\n```\n\n<iframe src=\"https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ\" title=\"Rick Astley - Never Gonna Give You Up (Official Music Video)\" frameborder=\"0\" allow=\"accelerometer; clipboard-write; encrypted-media; picture-in-picture;\"></iframe>\n\n<br />\n\n<img src=\"&proxy;https://www.markdownguide.org/assets/images/markdown-mark.svg\" />\n\n$$\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx !=\n\\begin{bmatrix}\n1 & 2 & 3 \\\\\n4 & 5 & e^{i\\pi} \\\\\n7 & 8 & 9\n\\end{bmatrix}\n$$\n\nThis is a basic example of how to use `md2html` to convert a markdown file to an HTML file.\n\n```html\n<body>\n  <h1>hi</h1>\n</body>\n```\n"
+    },
+    "parse.js": "import markedKatex from \"marked-katex-extension\";\nimport { markedHighlight } from \"marked-highlight\";\nimport { marked } from \"marked\";\nimport hljs from 'highlight.js';\nimport yaml from \"js-yaml\";\n\nconst renderer = {\n  code ( text, level ) {\n    if ( level === \"mermaid\" ) {\n      return `<pre class=\"mermaid\">${ text }</pre>`;\n    }\n    if ( level === \"psd\" ) {\n      return `<pre class=\"language-ps\">${ text }</pre>`;\n    };\n    return false;\n  }\n};\n\nconst options = {\n  katex: {\n    throwOnError: false,\n    output: \"mathml\",\n  },\n  hljs: {\n    langPrefix: 'hljs language-',\n    highlight ( code, lang ) {\n      if ( lang === \"psd\" ) {\n        const rendered = code\n          .split( \"\\n\" )\n          .map( ( e, i ) => {\n            return `<div class=\"ps\"><m>${ i }:</m>&ensp;${ marked( e, mcf )\n              }</div>`;\n          } )\n          .join( \"\" );\n        return rendered;\n      };\n      const language = hljs.getLanguage( lang ) ? lang : 'plaintext';\n      return hljs.highlight( code, { language } ).value;\n    }\n  }\n}\n\nmarked\n  .use( markedKatex( options.katex ) )\n  .use( markedHighlight( options.hljs ) )\n  .use( { renderer } )\n\nconst mcf = { mangle: false, headerIds: false };\nexport default function render ( text ) {\n  let [ , m, ...rest ] = text.split( \"---\" );\n  m = yaml.load( m?.trim(), { json: true } );\n\n  rest = rest.join( \"---\" )\n  let html = marked( rest, mcf );\n\n  for ( let key in m ) {\n    html = html.replace( `&${ key };`, m[ key ] );\n  }\n  return { meta: m, html }\n};\n",
+    "styles.css": "img,\nvideo,\ncode,\npre,\niframe {\n  border-radius: 5px;\n  max-width: 100%;\n}"
+  },
+  "customSetup": {
+    "dependencies": {
+      "marked": "latest",
+      "js-yaml": "latest",
+      "highlight.js": "latest",
+      "marked-highlight": "latest",
+      "marked-katex-extension": "latest",
+      "katex": "latest"
+    }
+  }
+}
