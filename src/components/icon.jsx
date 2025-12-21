@@ -1,35 +1,33 @@
 import React from "react";
 
 const Map = {
-  markdown: "md",
-  md: "md",
+  markdown: "markdown",
+  md: "markdown",
   vue: "vue",
-  js: "js",
-  css: "css",
   html: "html",
   svelte: "svelte",
   jsx: "react",
-  react: "react",
-  ml: "ocaml",
+  'vite-preact': "preact",
   ocaml: "ocaml",
   rs: "rust",
   rust: "rust",
   java: "java",
   python: "python",
-  py: "python",
   c: "c",
   cpp: "cpp",
-  "c++": "cpp",
   go: "go",
   golang: "go",
   solid: "solid",
 };
 
-function normalizeName ( name ) {
-  if ( !name ) return "";
+function norm ( name ) {
+  if ( !name ) return Map[ "html" ];
   const key = String( name ).trim().toLowerCase();
 
-  return Map[ key ] ?? key;
+  if ( !Object.hasOwn( Map, key ) )
+    return Map[ "html" ];
+
+  return Map[ key ];
 }
 
 export default function Icon ( {
@@ -40,22 +38,16 @@ export default function Icon ( {
   className,
   ...rest
 } ) {
-  const normalized = normalizeName( name );
-  const src = normalized ? `/icons/${ normalized }.svg` : "";
-
-  // If name is missing, render nothing (avoids broken requests)
-  if ( !src ) return null;
+  let src = norm( name );
 
   return (
     <img
-      src={src}
+      src={`/icons/${ src }.svg`}
       width={width}
       height={height}
-      alt={alt ?? normalized}
+      alt={alt ?? src}
       className={className}
       {...rest}
     />
   );
 }
-
-export { Icon };

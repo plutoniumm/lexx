@@ -27,3 +27,5 @@ dist-ssr
 # Million Lint
 .million
 local/
+pnpm-lock.yaml
+src/options.json

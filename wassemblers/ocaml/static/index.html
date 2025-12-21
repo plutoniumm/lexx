@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCaml Browser Workbench</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <textarea id="editor" spellcheck="false" rows="10">(* Welcome to OCaml in the Browser *)
+
+let square x = x * x
+
+let () =
+  print_endline "Hello from OCaml!";
+  Printf.printf "5 squared is %d\n" (square 5);;
+</textarea>
+
+  <button id="run-btn">Run (Ctrl+Enter)</button>
+
+  <pre id="output" aria-label="Console output"></pre>
+  <div id="meta" aria-label="Status and result">
+    <div id="status-line">Initializing runtime…</div>
+    <div id="result-line"></div>
+  </div>
+
+  <script>
+    const editor = document.getElementById( 'editor' );
+    const output = document.getElementById( 'output' );
+    const meta = document.getElementById( 'meta' );
+    const status = document.getElementById( 'status-line' );
+    const result = document.getElementById( 'result-line' );
+    const runBtn = document.getElementById( 'run-btn' );
+
+    const lines = [];
+    const clean = ( s ) => String( s ).replace( /\u001b\[[0-9;]*m/g, '' );
+    const append = ( s ) => {
+      lines.push( clean( s ) );
+      output.textContent = lines.join( '' );
+    };
+
+    const setStatus = ( s ) => {
+      status.textContent = String( s ?? '' );
+      meta.style.display = ( status.textContent || result.textContent ) ? '' : 'none';
+    };
+
+    const setResult = ( s ) => {
+      result.textContent = s == null ? '' : String( s );
+      meta.style.display = ( status.textContent || result.textContent ) ? '' : 'none';
+    };
+
+    const reset = ( statusText = '' ) => {
+      lines.length = 0;
+      output.textContent = '';
+      setResult( '' );
+      if ( statusText ) setStatus( statusText );
+    };
+
+    const format = ( args ) => args.map( a => {
+      try {
+        if ( typeof a === 'string' ) return a;
+        if ( a instanceof Error ) return a.stack || a.message;
+        return JSON.stringify( a );
+      } catch {
+        return String( a );
+      }
+    } ).join( ' ' );
+
+    const hookConsole = () => {
+      const write = ( ...args ) => append( format( args ) + '\n' );
+      console.log = write;
+      console.info = write;
+      console.debug = write;
+      console.warn = write;
+      console.error = write;
+    };
+
+    const hookOcaml = () => {
+      const o = window.ocaml;
+      if ( !o ) return false;
+
+      try {
+        if ( typeof o.setStdout === 'function' ) o.setStdout( s => append( String( s ) ) );
+        if ( typeof o.setStderr === 'function' ) o.setStderr( s => append( String( s ) ) );
+        if ( typeof o.setPrinter === 'function' ) o.setPrinter( s => append( String( s ) ) );
+        if ( 'stdout' in o && typeof o.stdout === 'function' ) o.stdout = s => append( String( s ) );
+        if ( 'stderr' in o && typeof o.stderr === 'function' ) o.stderr = s => append( String( s ) );
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    const wait = () => {
+      if ( window.ocaml ) {
+        hookOcaml();
+        setStatus( `Ready (OCaml ${ window.ocaml.version })` );
+        setResult( '' );
+        return;
+      }
+
+      setStatus( 'Initializing runtime…' );
+      const t = setInterval( () => {
+        if ( !window.ocaml ) return;
+        clearInterval( t );
+        hookOcaml();
+        setStatus( `Ready (OCaml ${ window.ocaml.version })` );
+        setResult( '' );
+      }, 100 );
+    };
+
+    const run = () => {
+      if ( !window.ocaml ) return;
+      reset( 'Compiling & running…' );
+
+      setTimeout( () => {
+        try {
+          hookOcaml();
+          const v = window.ocaml.run( editor.value );
+          setStatus( 'OK' );
+          setResult( v != null && String( v ).trim() !== '' ? v : '' );
+        } catch ( e ) {
+          setStatus( e?.message || e?.toString?.() || String( e ) );
+          setResult( '' );
+        }
+      }, 0 );
+    };
+
+    hookConsole();
+
+    window.addEventListener( 'error', ( e ) => {
+      setStatus( e.error?.message || e.message || String( e ) );
+    } );
+
+    window.addEventListener( 'unhandledrejection', ( e ) => {
+      setStatus( e.reason?.message || String( e.reason ) );
+    } );
+
+    runBtn.addEventListener( 'click', run );
+    editor.addEventListener( 'keydown', ( e ) => {
+      if ( e.ctrlKey && e.key === 'Enter' ) run();
+    } );
+
+    wait();
+  </script>
+  <script src="ocaml.js"></script>
+</body>
+
+</html>

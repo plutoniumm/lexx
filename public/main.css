@@ -6,13 +6,16 @@ body,
   height: 100vh;
 }
 
+header {
+  background: var(--theme);
+}
+
 select,
 select:focus {
   outline: none;
-  min-width: 100px;
-  height: 5%;
   background: var(--theme);
   text-transform: capitalize;
+  font-size: 16px;
 }
 
 .title {

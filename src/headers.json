@@ -43,8 +43,14 @@
   },
   {
     "name": "Markdown",
-    "value": "mdsvex",
+    "value": "markdown",
     "color": "#5af",
+    "type": "files"
+  },
+  {
+    "name": "Python",
+    "value": "ocaml",
+    "color": "#ed6",
     "type": "files"
   },
   {
@@ -55,7 +61,7 @@
   },
   {
     "name": "Svelte",
-    "value": "sveltevg",
+    "value": "svelte",
     "color": "#f40",
     "type": "files"
   }

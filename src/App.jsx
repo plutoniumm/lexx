@@ -13,7 +13,7 @@ import {
 import { SandpackFileExplorer } from 'sandpack-file-explorer';
 import { atomDark } from "@codesandbox/sandpack-themes";
 
-const startWith = "sveltevg";
+const startWith = "svelte";
 const starter = options.find( x => x.value === startWith );
 
 function App () {
@@ -43,7 +43,6 @@ function App () {
     setMode( { template, files } )
   };
 
-  if ( !window.isTop ) window.location.href = "/embed";
   return (
     <>
       <SandpackProvider {...mode} theme={atomDark} options={{

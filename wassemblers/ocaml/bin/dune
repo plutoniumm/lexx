@@ -1,0 +1,9 @@
+(executable
+ (name toplevel)
+ (libraries js_of_ocaml js_of_ocaml-toplevel)
+ (preprocess
+  (pps js_of_ocaml-ppx))
+ (modes js)
+ (js_of_ocaml
+  (flags
+   (:standard --toplevel))))

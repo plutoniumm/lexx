@@ -1,0 +1,57 @@
+body {
+  margin: 12px;
+  font-family: system-ui, sans-serif;
+}
+
+#editor {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+button {
+  padding: 8px 16px;
+  background: #fba922;
+  border: 0;
+  cursor: pointer;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+button:hover {
+  background: #ffc155;
+}
+
+#run-btn {
+  margin: 8px 0;
+}
+
+#output {
+  margin: 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  white-space: pre-wrap;
+  min-height: 6em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+#meta {
+  margin: 8px 0 0;
+  padding: 6px 8px;
+  border: 1px solid #e0e0e0;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+#meta #status-line {
+  color: #777;
+}
+
+#meta #result-line {
+  color: #666;
+  margin-top: 4px;
+  white-space: pre-wrap;
+}
