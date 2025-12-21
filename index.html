@@ -25,26 +25,8 @@
       --sp-layout-height: 100vh !important;
     }
 
-    .logo {
-      bottom: 10px;
-      left: 10px;
-      background: var(--theme);
-      border: 1px solid #fff2;
-      z-index: 1000;
-      transition: all 0.1s ease-in-out;
-    }
-
-    .logo select {
-      margin-left: 20px;
-      display: none;
-    }
-
-    .logo:hover {
-      border: 1px solid #fff8;
-    }
-
-    .logo:hover select {
-      display: block;
+    #sidebar {
+      --sp-layout-height: calc(100vh - 20px);
     }
   </style>
 
@@ -53,6 +35,9 @@
 
 <body xmlns="http://www.w3.org/2000/svg">
   <div id="root"></div>
+
+  <img src="/lexx.svg" alt="" class="p-abs rx5 o-50" height="28px" width="70px" style="bottom: 7px; left: 7px;" />
+
   <script type="module" src="/src/main.tsx"></script>
 </body>
 

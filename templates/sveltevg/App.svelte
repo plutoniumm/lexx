@@ -12,27 +12,8 @@
       <stop offset="0" stop-color="#b2F"></stop>
       <stop offset="1" stop-color="#44f"></stop>
     </linearGradient>
-    <filter id="neo">
-      <feDropShadow dx="0.5" dy="0.5" stdDeviation="0.1" flood-color="#44f">
-      </feDropShadow>
-      <feDropShadow dx="-0.5" dy="-0.5" stdDeviation="0.1" flood-color="#b2F">
-      </feDropShadow>
-    </filter>
-    <filter id="shadow">
-      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#2228">
-      </feDropShadow>
-    </filter>
   </defs>
-  <rect
-    filter="url(#neo)"
-    fill="url(#x)"
-    x="1"
-    y="1"
-    width="98"
-    height="98"
-    rx="10"
-  >
-  </rect>
+  <rect fill="url(#x)" x="0" y="0" width="100%" height="100%" rx="10%"></rect>
   <path
     fill="#fff"
     filter="url(#shadow)"

@@ -1,7 +1,7 @@
-import MillionLint from '@million/lint';
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import MillionLint from '@million/lint';
 import { exec } from 'child_process';
+import { defineConfig } from 'vite';
 
 
 function freeload () {

@@ -10,6 +10,9 @@ select,
 select:focus {
   outline: none;
   min-width: 100px;
+  height: 5%;
+  background: var(--theme);
+  text-transform: capitalize;
 }
 
 .title {
@@ -70,6 +73,7 @@ li {
   background: #334;
   height: calc(24px + 4px + 2px);
   transition: background 0.5s ease;
+  vertical-align: center;
 }
 
 .tagchip:hover {
