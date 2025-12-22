@@ -6,13 +6,17 @@
     "dev": "vite",
     "prebuild": "node scripts/template.js",
     "build": "vite build",
-    "deploy": "npx gh-pages -d dist -t true",
+    "deploy": "npx gh-pages -d dist",
     "postdeploy": "rm -rf dist"
   },
   "dependencies": {
+    "@codemirror/search": "^6.5.11",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/view": "^6.39.4",
     "@codesandbox/sandpack-react": "^2.20.0",
     "@codesandbox/sandpack-themes": "^2.0.21",
     "@million/lint": "^1.0.14",
+    "fuse.js": "^7.1.0",
     "million": "^3.0.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

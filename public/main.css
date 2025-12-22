@@ -69,12 +69,9 @@ li {
 
 .tagchip {
   cursor: pointer;
-  display: flex;
   margin: 5px;
   border-radius: 5px;
   padding: 2px;
-  background: #334;
-  height: calc(24px + 4px + 2px);
   transition: background 0.5s ease;
   vertical-align: center;
 }
@@ -84,7 +81,5 @@ li {
 }
 
 .tagchip div {
-  line-height: 25px;
   vertical-align: middle;
-  margin-right: 3px;
 }

@@ -9,25 +9,16 @@
 </head>
 
 <body>
-  <textarea id="editor" spellcheck="false" rows="10">(* Welcome to OCaml in the Browser *)
-
-let square x = x * x
-
-let () =
-  print_endline "Hello from OCaml!";
-  Printf.printf "5 squared is %d\n" (square 5);;
-</textarea>
-
-  <button id="run-btn">Run (Ctrl+Enter)</button>
-
-  <pre id="output" aria-label="Console output"></pre>
   <div id="meta" aria-label="Status and result">
     <div id="status-line">Initializing runtime…</div>
     <div id="result-line"></div>
   </div>
+  <pre id="output" aria-label="Console output"></pre>
+
+  <button id="run-btn">Run</button>
+
 
   <script>
-    const editor = document.getElementById( 'editor' );
     const output = document.getElementById( 'output' );
     const meta = document.getElementById( 'meta' );
     const status = document.getElementById( 'status-line' );
@@ -111,21 +102,26 @@ let () =
       }, 100 );
     };
 
-    const run = () => {
-      if ( !window.ocaml ) return;
-      reset( 'Compiling & running…' );
+    const MAIN_ML_PATH = '/main.ml';
 
-      setTimeout( () => {
-        try {
-          hookOcaml();
-          const v = window.ocaml.run( editor.value );
-          setStatus( 'OK' );
-          setResult( v != null && String( v ).trim() !== '' ? v : '' );
-        } catch ( e ) {
-          setStatus( e?.message || e?.toString?.() || String( e ) );
-          setResult( '' );
-        }
-      }, 0 );
+    const run = async () => {
+      if ( !window.ocaml ) return;
+      reset( `Fetching ${ MAIN_ML_PATH }…` );
+
+      try {
+        const res = await fetch( MAIN_ML_PATH, { cache: 'no-store' } );
+        if ( !res.ok ) throw new Error( `Failed to fetch ${ MAIN_ML_PATH } (${ res.status } ${ res.statusText })` );
+        const source = await res.text();
+
+        reset( 'Compiling & running…' );
+        hookOcaml();
+        const v = window.ocaml.run( source );
+        setStatus( 'OK' );
+        setResult( v != null && String( v ).trim() !== '' ? v : '' );
+      } catch ( e ) {
+        setStatus( e?.message || e?.toString?.() || String( e ) );
+        setResult( '' );
+      }
     };
 
     hookConsole();
@@ -139,9 +135,6 @@ let () =
     } );
 
     runBtn.addEventListener( 'click', run );
-    editor.addEventListener( 'keydown', ( e ) => {
-      if ( e.ctrlKey && e.key === 'Enter' ) run();
-    } );
 
     wait();
   </script>

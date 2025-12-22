@@ -1,7 +1,6 @@
-import Sidebar from "./components/sidebar";
 import Select from "./components/select";
-import { useState } from "react";
-import options from "./options.json";
+import { useEffect, useState } from "react";
+import headers from "./headers.json";
 
 import {
   SandpackProvider,
@@ -13,45 +12,45 @@ import {
 import { SandpackFileExplorer } from 'sandpack-file-explorer';
 import { atomDark } from "@codesandbox/sandpack-themes";
 
-const startWith = "svelte";
-const starter = options.find( x => x.value === startWith );
+function App ( { path } ) {
+  const init = headers.find( x => x.value === path );
 
-function App () {
-  const [ mode, setMode ] = useState( starter );
+  const [ header, setHeader ] = useState( init );
+  const [ mode, setMode ] = useState( null );
   const [ expanded, setExpanded ] = useState( false );
-  const [ Sel, setSel ] = useState( startWith );
+  const [ Sel, setSel ] = useState( init.value );
 
-  const toggleExpansion = () => setExpanded( !expanded );
+  async function getMode ( name ) {
+    if ( !name ) return;
+    let res = await fetch( `/json/${ name }.json` )
+      .then( r => r.json() );
+
+    setMode( res );
+  }
+
+  useEffect( () => {
+    getMode( header.value );
+  }, [ header ] );
 
   const upState = ( { target } ) => {
-    const value = options.find( x => x.value === target.value );
+    const value = headers.find( x => x.value === target.value );
+    if ( !value ) return;
+
     setSel( value.value );
-    onChange( value );
-  };
-
-  const onChange = ( opts ) => {
-    const type = opts.type;
-    if ( type !== "template" && type !== "files" ) return 0;
-    if ( type === "template" ) {
-      opts.template = opts.value;
-    };
-    setMode( opts );
-  };
-
-  const adder = ( files ) => {
-    const template = mode.template;
-    setMode( { template, files } )
+    setHeader( value );
   };
 
   return (
     <>
-      <SandpackProvider {...mode} theme={atomDark} options={{
-        recompileMode: "delayed"
-      }}>
+      <SandpackProvider
+        {...mode}
+        theme={atomDark}
+        options={{ recompileMode: "delayed" }}
+      >
         <SandpackLayout>
           <div id="sidebar" className="f-col">
             <Select
-              options={options}
+              options={headers}
               value={Sel}
               onChange={upState}
             />
@@ -63,16 +62,16 @@ function App () {
             showLineNumbers
             wrapContent
           />
-          <SandpackPreview>
-            <Sidebar
-              adder={adder}
-              toggle={toggleExpansion}
-              expanded={expanded}
-            />
-            {expanded && <SandpackConsole style={{
-              height: "50%"
-            }} />}
-          </SandpackPreview>
+          {mode && <SandpackPreview>
+            <div className="tagchip" onClick={() => setExpanded( !expanded )}>
+              <svg className="quicon" viewBox="0 0 24 24">
+                <path stroke="#000" fill={expanded ? "#fff" : "#888"} stroke-width="2" d="M4 19H20l1-1V6L20 5H4L3 6V18Zm3-4 3-2-3-3m5 5h5" />
+              </svg>
+            </div>
+            <SandpackConsole style={{
+              height: expanded ? "50%" : "0px"
+            }} />
+          </SandpackPreview>}
         </SandpackLayout>
       </SandpackProvider>
     </>
