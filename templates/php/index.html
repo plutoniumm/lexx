@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In-Browser PHP REPL</title>
+  <style>
+    :root {
+      --bg-color: #1e1e1e;
+      --text-color: #d4d4d4;
+      --accent: #777da7;
+      /* PHP Purpleish */
+      --border: #333;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background: #252526;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .editor-pane,
+    .output-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .editor-pane {
+      border-right: 1px solid var(--border);
+    }
+
+    textarea {
+      flex: 1;
+      background: #2d2d2d;
+      color: #dcdcdc;
+      border: 1px solid var(--border);
+      padding: 10px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+    }
+
+    button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    #output {
+      flex: 1;
+      background: #111;
+      padding: 10px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-family: 'Courier New', Courier, monospace;
+      border: 1px solid var(--border);
+    }
+
+    .loading {
+      color: #888;
+      font-style: italic;
+    }
+
+    .status {
+      font-size: 0.8rem;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div style="display:flex; align-items:center">
+      <h1>PHP WebAssembly REPL</h1>
+      <span id="status" class="status">Initializing...</span>
+    </div>
+    <button id="runBtn" disabled>Run Code (Ctrl+Enter)</button>
+  </header>
+
+  <div class="container">
+    <div class="editor-pane">
+      <h3>Input (PHP)</h3>
+      <textarea id="code" spellcheck="false">&lt;?php
+
+$version = phpversion();
+echo "Running PHP $version in the browser!\n";
+echo "----------------------------------\n";
+
+// Example: Math
+echo "2 + 2 = " . (2+2) . "\n";
+
+// Example: Objects
+class User {
+    public function __construct(public string $name) {}
+}
+
+$user = new User("Developer");
+echo "Hello, " . $user->name . "!";
+</textarea>
+    </div>
+    <div class="output-pane">
+      <h3>Output</h3>
+      <div id="output"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { PhpWeb } from 'https://cdn.jsdelivr.net/npm/php-wasm/PhpWeb.mjs';
+
+    let php;
+    const runBtn = document.getElementById( 'runBtn' );
+    const outputDiv = document.getElementById( 'output' );
+    const statusSpan = document.getElementById( 'status' );
+    const codeArea = document.getElementById( 'code' );
+
+    async function initPHP () {
+      try {
+        statusSpan.innerText = "Downloading PHP Runtime...";
+
+        php = new PhpWeb();
+        await php.ready;
+
+        statusSpan.innerText = "Ready";
+        statusSpan.style.color = "#4caf50";
+        runBtn.disabled = false;
+
+        php.addEventListener( 'output', ( event ) => {
+          const text = new TextDecoder().decode( event.detail );
+          appendToOutput( text );
+        } );
+
+        php.addEventListener( 'error', ( event ) => {
+          const text = new TextDecoder().decode( event.detail );
+          appendToOutput( "Error: " + text );
+        } );
+
+      } catch ( err ) {
+        statusSpan.innerText = "Error loading PHP";
+        console.error( err );
+      }
+    }
+
+    function appendToOutput ( text ) {
+      outputDiv.innerText += text;
+    }
+
+    async function runCode () {
+      if ( !php ) return;
+
+      outputDiv.innerText = "";
+      const code = codeArea.value;
+
+      try {
+        const exitCode = await php.run( code );
+
+        if ( exitCode !== 0 ) {
+          appendToOutput( `\n\nProcess exited with code ${ exitCode }` );
+        }
+      } catch ( e ) {
+        appendToOutput( "\nJavaScript Error: " + e.message );
+      }
+    };
+
+    initPHP();
+    runBtn.addEventListener( 'click', runCode );
+    document.addEventListener( 'keydown', ( e ) => {
+      if ( ( e.ctrlKey || e.metaKey ) && e.key === 'Enter' ) {
+        runCode();
+      }
+    } );
+  </script>
+
+</body>
+
+</html>

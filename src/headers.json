@@ -54,6 +54,12 @@
     "type": "files"
   },
   {
+    "name": "PHP",
+    "value": "php",
+    "color": "#4F5B93",
+    "type": "files"
+  },
+  {
     "name": "Python",
     "value": "python",
     "color": "linear-gradient(135deg, #57B 0%, #57B 50%, #fd4 50%, #fd4 100%)",
